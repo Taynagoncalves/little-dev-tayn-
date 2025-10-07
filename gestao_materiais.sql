@@ -1,3 +1,5 @@
+CREATE DATABASE gestao_materiais CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE gestao_materiais;
 CREATE TABLE pessoas (
     id_pessoa INT PRIMARY KEY AUTO_INCREMENT,
     nome VARCHAR(50) NOT NULL
@@ -55,7 +57,3 @@ CREATE TABLE devolucoes (
 );
 
 
-INSERT INTO categorias (nome_categoria) VALUES 
-('Tecnologia'),
-('Automotiva'),
-('Construção Civil');

@@ -1,0 +1,116 @@
+body {
+    font-family: 'Segoe UI', sans-serif;
+    display: flex;
+    margin: 0;
+  }
+  
+  .sidebar {
+    width: 240px;
+    background-color: #111D4A;
+    color: #fff;
+    height: 100vh;
+    position: fixed;
+    padding: 20px 0;
+  }
+  
+  .sidebar .logo img {
+    width: 150px;
+    display: block;
+    margin: 0 auto 30px;
+  }
+  
+  .sidebar ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .sidebar li {
+    padding: 15px 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+  }
+  
+  .sidebar li.ativo, .sidebar li:hover {
+    background: #0e173d;
+  }
+  
+  .sidebar a, .sidebar span {
+    color: #fff;
+    text-decoration: none;
+  }
+  
+  .main-content {
+    margin-left: 260px;
+    padding: 40px;
+    width: 100%;
+  }
+  
+  h1 {
+    color: #111D4A;
+  }
+  
+  .btn-azul {
+    background: #111D4A;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+  }
+  
+  .filtros {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 30px;
+  }
+  
+  .cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+  }
+  
+  .card-equipamento {
+    border-radius: 10px;
+    background: #f8f9fa;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 15px;
+    text-align: center;
+  }
+  
+  .card-equipamento img {
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
+  }
+  
+  .status {
+    display: inline-block;
+    padding: 5px 10px;
+    border-radius: 8px;
+    color: white;
+    font-size: 12px;
+  }
+  
+  .status.disponível { background: #4CAF50; }
+  .status.emprestado { background: #FF9800; }
+  .status.atrasado { background: #F44336; }
+  
+  .acoes {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+  }
+  
+  .acoes button {
+    background: #111D4A;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+  

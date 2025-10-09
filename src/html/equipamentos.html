@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipamentos - Plataforma SENAI</title>
+  <link rel="stylesheet" href="../css/equipamentos.css">
+</head>
+<body>
+  <div class="sidebar">
+    <div class="logo">
+      <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI">
+    </div>
+
+    <ul class="menu">
+      <li>
+        <img src="../iconsLateral/menuBranco.png" alt="Dashboard">
+        <a href="dashboard.html">Dashboard</a>
+      </li>
+      <li class="ativo">
+        <img src="../iconsLateral/equipamentosBranco.png" alt="Equipamentos">
+        <span>Equipamentos</span>
+      </li>
+      <li>
+        <img src="../iconsLateral/carteiraBranca.png" alt="Empréstimos">
+        <a href="#">Empréstimos</a>
+      </li>
+      <li>
+        <img src="../iconsLateral/relatorioBranco.png" alt="Relatórios">
+        <a href="#">Relatórios</a>
+      </li>
+      <li>
+        <img src="../iconsLateral/reservasBranco.png" alt="Reservas">
+        <a href="#">Reservas</a>
+      </li>
+      <li>
+        <img src="../iconsLateral/devolucaoBranca.png" alt="Devoluções">
+        <a href="#">Devoluções</a>
+      </li>
+      <li>
+        <img src="../iconsLateral/configBranca.png" alt="Configurações">
+        <a href="#">Configurações</a>
+      </li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <h1>Equipamentos</h1>
+
+    <div class="filtros">
+      <input type="text" id="pesquisa" placeholder="🔍 Pesquisar por nome">
+      <select id="valorAgregado">
+        <option value="">Valor agregado</option>
+        <option value="Alto">Alto</option>
+        <option value="Baixo">Baixo</option>
+      </select>
+
+      <select id="disponibilidade">
+        <option value="">Disponibilidade</option>
+        <option value="Disponível">Disponível</option>
+        <option value="Emprestado">Emprestado</option>
+        <option value="Atrasado">Atrasado</option>
+      </select>
+
+      <select id="categoria"></select>
+
+      <button id="btnAdicionar" class="btn-azul">Adicionar Novo Equipamento</button>
+    </div>
+
+    <div id="listaEquipamentos" class="cards"></div>
+  </div>
+
+  <script src="../js/equipamentos.js"></script>
+</body>
+</html>

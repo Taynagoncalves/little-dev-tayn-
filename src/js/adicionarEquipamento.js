@@ -2,13 +2,13 @@ document.addEventListener("DOMContentLoaded", async () => {
     const form = document.getElementById("formEquipamento");
     const categoriaSelect = document.getElementById("categoriaSelect");
   
-    // carregar categorias
+   
     const categorias = await fetch("/categorias").then(r => r.json());
     categoriaSelect.innerHTML = categorias
       .map(c => `<option value="${c.id_categoria}">${c.nome_categoria}</option>`)
       .join('');
   
-    // enviar dados
+  
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
       const formData = new FormData(form);

@@ -1,116 +1,375 @@
-body {
-    font-family: 'Segoe UI', sans-serif;
-    display: flex;
-    margin: 0;
+/* Definição de Variáveis CSS para facilitar a manutenção */
+:root {
+  --primary-blue: #111D4A; /* Azul Escuro (cor solicitada) */
+  --text-dark: #333;
+  --text-light: #555;
+  --available-green: #bada55; /* Cor verde para 'Disponível' */
+  --loaned-orange: #ffb366; /* Cor laranja para 'Emprestado' */
+  --edit-blue: var(--primary-blue); /* Letra do botão EDITAR */
+  --delete-orange: #f87440; /* Laranja para 'Excluir' */
+  --border-light: #e0e0e0;
+  --box-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+/* Reset básico e tipografia */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* O estilo 'body' de layout é agora gerenciado pelo dashboard.css */
+
+/* Container adaptado para funcionar dentro de main-content */
+.container-equipamentos {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+  padding-top: 40px; 
+  padding-bottom: 40px;
+}
+
+    /* ====== SIDEBAR ====== */
+    .sidebar {
+      width: 240px;
+      background: #111D4A;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 25px 0;
+      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+      
+      top: 0;
+      left: 0;
+      height: 100vh;
+    }
+
+    .sidebar .logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .sidebar .logo img {
+      width: 140px;
+    }
+
+    .sidebar .menu {
+      list-style: none;
+      padding: 0;
+      margin-top: 10px;
+      width: 100%;
+    }
+
+    .sidebar .menu li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 25px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .sidebar .menu li img {
+      width: 22px;
+    }
+
+    .sidebar .menu li a {
+      color: white;
+      text-decoration: none;
+      font-size: 15px;
+      font-weight: 500;
+    }
+
+    .sidebar .menu li:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .sidebar .menu li.ativo {
+      background: rgba(255, 255, 255, 0.15);
+      border-left: 4px solid white;
+    }
+  
+/* Título Principal - COR #111D4A GARANTIDA AQUI */
+.main-title {
+  color: var(--primary-blue);
+  font-size: 2.5em;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+/* Área de Busca e Botão Adicionar */
+.header-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--border-light);
+  /* Borda menos quadrada */
+  border-radius: 6px; 
+  padding: 8px 10px;
+  background-color: white;
+  width: 65%;
+}
+
+.search-icon {
+  color: var(--text-light);
+  margin-right: 10px;
+}
+
+.search-box input[type="text"] {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  font-size: 1em;
+}
+
+/* Botão Adicionar - COR #111D4A GARANTIDA NO FUNDO */
+.add-button {
+  background-color: var(--primary-blue);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  /* Borda menos quadrada */
+  border-radius: 6px; 
+  font-size: 1em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: 30%;
+}
+
+.add-button:hover {
+  background-color: #0d1633;
+}
+
+/* Filtros (Sem alterações de cor significativas, apenas ajuste visual) */
+.filters {
+  display: flex;
+  gap: 30px;
+  margin-bottom: 20px;
+}
+
+.filter-dropdown {
+  position: relative;
+  cursor: pointer;
+  padding: 5px 0;
+  font-size: 0.9em;
+  color: var(--text-light);
+}
+
+.filter-label {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--text-dark);
+  font-weight: bold;
+}
+
+.filter-selected {
+  border: 1px solid var(--border-light);
+  padding: 5px 25px 5px 10px;
+  border-radius: 4px;
+  background-color: white;
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-icon {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 0.7em;
+  color: var(--text-light);
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 150px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 8px 12px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Separador */
+.separator {
+  border: 0;
+  height: 1px;
+  background-color: var(--border-light);
+  margin-bottom: 30px;
+}
+
+/* Grade de Equipamentos (Cards) */
+.equipment-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); 
+  gap: 20px;
+}
+
+/* Ajuste principal para cards arredondados */
+.equipment-card {
+  background-color: white;
+  border: 1px solid var(--border-light);
+  /* MAIS ARREDONDADO */
+  border-radius: 12px; 
+  box-shadow: var(--box-shadow-light);
+  padding: 15px;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.equipment-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.equipment-image {
+  width: 100%;
+  max-width: 100px;
+  height: auto;
+  margin-bottom: 10px;
+  background-color: #e6e6e6; 
+  border-radius: 4px;
+}
+
+/* TÍTULOS DOS CARDS - COR #111D4A GARANTIDA AQUI */
+.card-content h3 {
+  font-size: 1.1em;
+  margin-bottom: 5px;
+  color: var(--primary-blue);
+}
+
+.card-content p {
+  font-size: 0.85em;
+  color: var(--text-light);
+  margin-bottom: 3px;
+}
+
+.card-content .code {
+  font-weight: bold;
+  color: var(--text-dark);
+}
+
+/* Status (Disponível/Emprestado) */
+.status {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 20px;
+  font-size: 0.8em;
+  font-weight: bold;
+  margin: 10px 0;
+  text-transform: uppercase;
+}
+
+.status.available {
+  background-color: var(--available-green);
+  /* Letra escura no fundo claro para contraste */
+  color: var(--primary-blue); 
+}
+
+.status.loaned {
+  background-color: var(--loaned-orange);
+  /* Letra escura no fundo claro para contraste */
+  color: var(--primary-blue); 
+}
+
+/* Botões de Ação (Editar/Excluir) */
+.card-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.action-button {
+  flex: 1;
+  padding: 8px 0;
+  border: none;
+  /* Ajuste para botões menos quadrados */
+  border-radius: 6px; 
+  font-size: 0.9em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background-color 0.3s, opacity 0.3s;
+}
+
+.action-button:hover {
+  opacity: 0.8;
+}
+
+/* Botão EDITAR - COR #111D4A GARANTIDA NA BORDA E LETRA */
+.edit-button {
+  background-color: white;
+  color: var(--edit-blue);
+  border: 1px solid var(--edit-blue);
+}
+
+.delete-button {
+  background-color: var(--delete-orange);
+  color: white;
+  border: 1px solid var(--delete-orange);
+}
+
+
+/* --- RESPONSIVIDADE (Mantida) --- */
+
+/* Telas Médias (Tablets) */
+@media (max-width: 992px) {
+  .equipment-grid {
+      grid-template-columns: repeat(3, 1fr); 
   }
   
-  .sidebar {
-    width: 240px;
-    background-color: #111D4A;
-    color: #fff;
-    height: 100vh;
-    position: fixed;
-    padding: 20px 0;
+  .header-actions {
+      flex-direction: column;
+      gap: 15px;
+  }
+
+  .search-box, .add-button {
+      width: 100%;
+  }
+}
+
+/* Telas Pequenas (Celulares) */
+@media (max-width: 768px) {
+  .main-title {
+      font-size: 2em;
   }
   
-  .sidebar .logo img {
-    width: 150px;
-    display: block;
-    margin: 0 auto 30px;
+  .filters {
+      flex-direction: column; 
+      gap: 15px;
   }
-  
-  .sidebar ul {
-    list-style: none;
-    padding: 0;
+
+  .filter-dropdown {
+      width: 100%;
   }
-  
-  .sidebar li {
-    padding: 15px 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    cursor: pointer;
+
+  .filter-selected {
+      width: 100%;
   }
-  
-  .sidebar li.ativo, .sidebar li:hover {
-    background: #0e173d;
+
+  .equipment-grid {
+      grid-template-columns: repeat(2, 1fr); 
   }
-  
-  .sidebar a, .sidebar span {
-    color: #fff;
-    text-decoration: none;
+}
+
+/* Telas Muito Pequenas */
+@media (max-width: 480px) {
+  .equipment-grid {
+      grid-template-columns: 1fr; 
   }
-  
-  .main-content {
-    margin-left: 260px;
-    padding: 40px;
-    width: 100%;
-  }
-  
-  h1 {
-    color: #111D4A;
-  }
-  
-  .btn-azul {
-    background: #111D4A;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 8px;
-    cursor: pointer;
-  }
-  
-  .filtros {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 30px;
-  }
-  
-  .cards {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 20px;
-  }
-  
-  .card-equipamento {
-    border-radius: 10px;
-    background: #f8f9fa;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    padding: 15px;
-    text-align: center;
-  }
-  
-  .card-equipamento img {
-    width: 100px;
-    height: 100px;
-    object-fit: contain;
-  }
-  
-  .status {
-    display: inline-block;
-    padding: 5px 10px;
-    border-radius: 8px;
-    color: white;
-    font-size: 12px;
-  }
-  
-  .status.disponível { background: #4CAF50; }
-  .status.emprestado { background: #FF9800; }
-  .status.atrasado { background: #F44336; }
-  
-  .acoes {
-    display: flex;
-    justify-content: center;
-    gap: 10px;
-    margin-top: 10px;
-  }
-  
-  .acoes button {
-    background: #111D4A;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    border-radius: 6px;
-    cursor: pointer;
-  }
-  
+}

@@ -59,16 +59,14 @@ app.get('/categorias', async (req, res) => {
   }
 });
 
-
 app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
   try {
     const { nome, codigo, valor_agregado, id_categoria } = req.body;
     const { mimetype, buffer } = req.file;
 
     await query(
-      `INSERT INTO equipamentos 
-      (nome, codigo, valor_agregado, id_categoria, tipo_mine, dados) 
-      VALUES (?, ?, ?, ?, ?, ?)`,
+      `INSERT INTO equipamentos (nome, codigo, valor_agregado, id_categoria, tipo_mime, dados) 
+       VALUES (?, ?, ?, ?, ?, ?)`,
       [nome, codigo, valor_agregado, id_categoria, mimetype, buffer]
     );
 

@@ -1,219 +1,79 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Inventário de Equipamentos - SENAI</title>
-    <link rel="stylesheet" href="../css/dashboard.css">
-    <link rel="stylesheet" href="../css/equipamentos.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Equipamentos - SENAI</title>
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 </head>
 <body>
-    
   <div class="sidebar">
     <div class="logo">
       <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI">
     </div>
     <ul class="menu">
-      <li>
-        <img src="../iconsLateral/menuBranco.png" alt="Dashboard">
-        <a href="dashboard.html">Dashboard</a>
-      </li>
-      <li class="#">
-        <img src="../iconsLateral/carteiraBranca.png" alt="Empréstimos">
-        <a href="emprestimos.html">Empréstimos</a>
-      </li>
-      <li class="ativo">
-        <img src="../iconsLateral/equipamentosBranco.png" alt="Equipamentos">
-        <a href="equipamentos.html">Equipamentos</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/relatorioBranco.png" alt="Relatórios">
-        <a href="relatorios.html">Relatórios</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/reservasBranco.png" alt="Reservas">
-        <a href="reservas.html">Reservas</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/devolucaoBranca.png" alt="Devoluções">
-        <a href="devolucoes.html">Devoluções</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/configBranca.png" alt="Configurações">
-        <a href="configuracoes.html">Configurações</a>
-      </li>
+      <li><img src="../iconsLateral/menuBranco.png"><a href="dashboard.html">Dashboard</a></li>
+      <li><img src="../iconsLateral/carteiraBranca.png"><a href="emprestimos.html">Empréstimos</a></li>
+      <li class="ativo"><img src="../iconsLateral/equipamentosBranco.png"><a href="equipamentos.html">Equipamentos</a></li>
+      <li><img src="../iconsLateral/relatorioBranco.png"><a href="relatorios.html">Relatórios</a></li>
+      <li><img src="../iconsLateral/reservasBranca.png"><a href="reservas.html">Reservas</a></li>
+      <li><img src="../iconsLateral/devolucaoBranca.png"><a href="devolucoes.html">Devoluções</a></li>
+      <li><img src="../iconsLateral/configBranca.png"><a href="configuracoes.html">Configurações</a></li>
     </ul>
   </div>
-    
-    <div class="main-content">
-        <div class="container-equipamentos"> 
-            
-            <h1 class="main-title">Equipamentos</h1>
 
-            <div class="header-actions">
-                <div class="search-box">
-                    <i class="fas fa-search search-icon"></i>
-                    <input type="text" id="search-input" placeholder="Pesquisar por nome">
-                </div>
-                <button class="add-button" onclick="window.location.href='/adicionarEquipamento.html'">Adicionar Novo Equipamento</button>
-            </div>
-
-            <div class="filters">
-                <div class="filter-dropdown" data-filter-type="valor">
-                    <span class="filter-label">Valor agregado</span>
-                    <span class="filter-selected" data-current-value="todos">Todos</span> 
-                    <i class="fas fa-chevron-down dropdown-icon"></i>
-                    <div class="dropdown-content">
-                        <a href="#" data-value="todos">Todos</a>
-                        <a href="#" data-value="alto">Alto</a>
-                        <a href="#" data-value="baixo">Baixo</a>
-                    </div>
-                </div>
-
-                <div class="filter-dropdown" data-filter-type="disponibilidade">
-                    <span class="filter-label">Disponibilidade</span>
-                     <span class="filter-selected" data-current-value="todos">Todos</span>
-                    <i class="fas fa-chevron-down dropdown-icon"></i>
-                    <div class="dropdown-content">
-                        <a href="#" data-value="todos">Todos</a>
-                        <a href="#" data-value="disponivel">Disponível</a>
-                        <a href="#" data-value="emprestado">Emprestado</a>
-                    </div>
-                </div>
-
-                <div class="filter-dropdown" data-filter-type="categoria">
-                    <span class="filter-label">Categoria</span>
-                     <span class="filter-selected" data-current-value="todos">Todos</span>
-                    <i class="fas fa-chevron-down dropdown-icon"></i>
-                    <div class="dropdown-content">
-                        <a href="#" data-value="todos">Todos</a>
-                        <a href="#" data-value="tecnologia">Tecnologia</a>
-                        <a href="#" data-value="civil">Construção Civil</a>
-                        <a href="#" data-value="automotivo">Automotivo</a>
-                    </div>
-                </div>
-            </div>
-            
-            <hr class="separator">
-
-            <div class="equipment-grid">
-                <div class="equipment-card" data-disponibilidade="disponivel" data-categoria="tecnologia" data-valor="alto">
-                    <img src="placeholder-notebook.png" alt="Notebook i7" class="equipment-image">
-                    <div class="card-content">
-                        <h3>Notebook i7</h3>
-                        <p class="category">Tecnologia</p>
-                        <p class="code">CÓDIGO: 2389</p>
-                        <span class="status available">Disponível</span>
-                        <div class="card-actions">
-                            <button class="action-button edit-button" data-action="edit" data-id="2389">Editar</button>
-                            <button class="action-button delete-button" data-action="delete" data-id="2389">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="equipment-card" data-disponibilidade="disponivel" data-categoria="civil" data-valor="baixo">
-                    <img src="placeholder-capacete.png" alt="Capacete de Segurança" class="equipment-image">
-                    <div class="card-content">
-                        <h3>Capacete de Segurança</h3>
-                        <p class="category">Construção Civil</p>
-                        <p class="code">CÓDIGO: 1234</p>
-                        <span class="status available">Disponível</span>
-                        <div class="card-actions">
-                            <button class="action-button edit-button" data-action="edit" data-id="1234">Editar</button>
-                            <button class="action-button delete-button" data-action="delete" data-id="1234">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="equipment-card" data-disponibilidade="emprestado" data-categoria="automotivo" data-valor="alto">
-                    <img src="placeholder-macaco.png" alt="Macaco Hidráulico" class="equipment-image">
-                    <div class="card-content">
-                        <h3>Macaco Hidráulico</h3>
-                        <p class="category">Automotivo</p>
-                        <p class="code">CÓDIGO: 1245</p>
-                        <span class="status loaned">Emprestado</span>
-                        <div class="card-actions">
-                            <button class="action-button edit-button" data-action="edit" data-id="1245">Editar</button>
-                            <button class="action-button delete-button" data-action="delete" data-id="1245">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="equipment-card" data-disponibilidade="emprestado" data-categoria="tecnologia" data-valor="baixo">
-                    <img src="placeholder-cabo.png" alt="Cabo HDMI" class="equipment-image">
-                    <div class="card-content">
-                        <h3>Cabo HDMI</h3>
-                        <p class="category">Tecnologia</p>
-                        <p class="code">CÓDIGO: 3212</p>
-                        <span class="status loaned">Emprestado</span>
-                        <div class="card-actions">
-                            <button class="action-button edit-button" data-action="edit" data-id="3212">Editar</button>
-                            <button class="action-button delete-button" data-action="delete" data-id="3212">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="equipment-card" data-disponibilidade="disponivel" data-categoria="tecnologia" data-valor="alto">
-                    <img src="placeholder-notebook.png" alt="Notebook i7" class="equipment-image">
-                    <div class="card-content">
-                        <h3>Notebook i7</h3>
-                        <p class="category">Tecnologia</p>
-                        <p class="code">CÓDIGO: 2389</p>
-                        <span class="status available">Disponível</span>
-                        <div class="card-actions">
-                            <button class="action-button edit-button" data-action="edit" data-id="2389">Editar</button>
-                            <button class="action-button delete-button" data-action="delete" data-id="2389">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-                
-                <div class="equipment-card" data-disponibilidade="disponivel" data-categoria="civil" data-valor="baixo">
-                    <img src="placeholder-capacete.png" alt="Capacete de Segurança" class="equipment-image">
-                    <div class="card-content">
-                        <h3>Capacete de Segurança</h3>
-                        <p class="category">Construção Civil</p>
-                        <p class="code">CÓDIGO: 2331</p>
-                        <span class="status available">Disponível</span>
-                        <div class="card-actions">
-                            <button class="action-button edit-button" data-action="edit" data-id="2331">Editar</button>
-                            <button class="action-button delete-button" data-action="delete" data-id="2331">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="equipment-card" data-disponibilidade="emprestado" data-categoria="automotivo" data-valor="alto">
-                    <img src="placeholder-macaco.png" alt="Macaco Hidráulico" class="equipment-image">
-                    <div class="card-content">
-                        <h3>Macaco Hidráulico</h3>
-                        <p class="category">Automotivo</p>
-                        <p class="code">CÓDIGO: 1431</p>
-                        <span class="status loaned">Emprestado</span>
-                        <div class="card-actions">
-                            <button class="action-button edit-button" data-action="edit" data-id="1431">Editar</button>
-                            <button class="action-button delete-button" data-action="delete" data-id="1431">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="equipment-card" data-disponibilidade="disponivel" data-categoria="tecnologia" data-valor="baixo">
-                    <img src="placeholder-cabo.png" alt="Cabo HDMI" class="equipment-image">
-                    <div class="card-content">
-                        <h3>Cabo HDMI</h3>
-                        <p class="category">Tecnologia</p>
-                        <p class="code">CÓDIGO: 3312</p>
-                        <span class="status available">Disponível</span>
-                        <div class="card-actions">
-                            <button class="action-button edit-button" data-action="edit" data-id="3312">Editar</button>
-                            <button class="action-button delete-button" data-action="delete" data-id="3312">Excluir</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
+  <div class="main-content">
+    <h1 class="main-title">Equipamentos</h1>
+    <div class="header-actions">
+      <div class="search-box">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" id="search-input" placeholder="Pesquisar por nome">
+      </div>
+      <button class="add-button" onclick="window.location.href='/adicionarEquipamentoPage'">Adicionar Novo Equipamento</button>
     </div>
-    
-    <script src="../js/equipamentos.js"></script>
-    <script src="../js/dashboard.js"></script> 
+
+    <hr class="separator">
+    <div id="equipamentos-container" class="equipment-grid">
+      <!-- Equipamentos serão carregados aqui -->
+    </div>
+  </div>
+
+  <script>
+    async function carregarEquipamentos() {
+      const container = document.getElementById('equipamentos-container');
+      container.innerHTML = '<p>Carregando equipamentos...</p>';
+
+      const response = await fetch('/equipamentos');
+      const equipamentos = await response.json();
+
+      container.innerHTML = '';
+
+      equipamentos.forEach(eq => {
+        const imgSrc = eq.dados ? `data:${eq.tipo_mine};base64,${arrayBufferToBase64(eq.dados.data)}` : '../imagens/placeholder.png';
+        const card = document.createElement('div');
+        card.classList.add('equipment-card');
+        card.innerHTML = `
+          <img src="${imgSrc}" alt="${eq.nome}" class="equipment-image">
+          <div class="card-content">
+            <h3>${eq.nome}</h3>
+            <p class="category">${eq.nome_categoria}</p>
+            <p class="code">CÓDIGO: ${eq.codigo}</p>
+            <span class="status available">Disponível</span>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }
+
+    function arrayBufferToBase64(buffer) {
+      let binary = '';
+      const bytes = new Uint8Array(buffer);
+      bytes.forEach(b => binary += String.fromCharCode(b));
+      return window.btoa(binary);
+    }
+
+    carregarEquipamentos();
+  </script>
 </body>
 </html>

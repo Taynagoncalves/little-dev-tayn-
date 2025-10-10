@@ -211,34 +211,9 @@
       <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI">
     </div>
     <ul class="menu">
-      <li>
-        <img src="../iconsLateral/menuBranco.png" alt="Dashboard">
-        <a href="dashboard.html">Dashboard</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/carteiraBranca.png" alt="Empréstimos">
-        <a href="emprestimos.html">Empréstimos</a>
-      </li>
-      <li class="ativo">
-        <img src="../iconsLateral/equipamentosBranco.png" alt="Equipamentos">
-        <a href="equipamentos.html">Equipamentos</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/relatorioBranco.png" alt="Relatórios">
-        <a href="relatorios.html">Relatórios</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/reservasBranco.png" alt="Reservas">
-        <a href="reservas.html">Reservas</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/devolucaoBranca.png" alt="Devoluções">
-        <a href="devolucoes.html">Devoluções</a>
-      </li>
-      <li>
-        <img src="../iconsLateral/configuracoesBranco.png" alt="Configurações">
-        <a href="configuracoes.html">Configurações</a>
-      </li>
+      <li><img src="../iconsLateral/menuBranco.png"><a href="dashboard.html">Dashboard</a></li>
+      <li><img src="../iconsLateral/carteiraBranca.png"><a href="emprestimos.html">Empréstimos</a></li>
+      <li class="ativo"><img src="../iconsLateral/equipamentosBranco.png"><a href="equipamentos.html">Equipamentos</a></li>
     </ul>
   </div>
 
@@ -247,38 +222,50 @@
 
     <form id="formEquipamento" enctype="multipart/form-data">
       <label for="imagem" class="upload-container">
-        <img src="../iconsDashbord/uploadIcon.png" alt="Upload">
-        <p>Arraste ou selecione uma imagem do equipamento</p>
-        <input type="file" id="imagem" name="imagem" accept="image/*" required hidden>
+        <p>Selecione uma imagem do equipamento</p>
+        <input type="file" id="imagem" name="imagem" accept="image/*" required>
       </label>
 
-      <div class="form-grid">
-        <div>
-          <label>Nome do Equipamento:</label>
-          <input type="text" name="nome" required>
-        </div>
-
-        <div>
-          <label>Código:</label>
-          <input type="text" name="codigo" required>
-        </div>
-
-        <div>
-          <label>Categoria:</label>
-          <select name="id_categoria" id="categoriaSelect" required></select>
-        </div>
-
-        <div>
-          <label>Valor Agregado:</label>
-          <select name="valor_agregado" required>
-            <option value="Alto">Alto</option>
-            <option value="Baixo">Baixo</option>
-          </select>
-        </div>
-      </div>
+      <input type="text" name="nome" placeholder="Nome do equipamento" required>
+      <input type="text" name="codigo" placeholder="Código" required>
+      <select name="valor_agregado" required>
+        <option value="Alto">Alto</option>
+        <option value="Baixo">Baixo</option>
+      </select>
+      <select name="id_categoria" id="categoriaSelect" required></select>
 
       <button type="submit" class="btn-azul">Adicionar Equipamento</button>
     </form>
   </div>
+
+  <script>
+    async function carregarCategorias() {
+      const res = await fetch('/categorias');
+      const categorias = await res.json();
+      const select = document.getElementById('categoriaSelect');
+      categorias.forEach(cat => {
+        const option = document.createElement('option');
+        option.value = cat.id_categoria;
+        option.textContent = cat.nome_categoria;
+        select.appendChild(option);
+      });
+    }
+
+    carregarCategorias();
+
+    document.getElementById('formEquipamento').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData(e.target);
+      const res = await fetch('/equipamentos', { method: 'POST', body: formData });
+
+      if (res.ok) {
+        alert('Equipamento adicionado com sucesso!');
+        window.location.href = '/equipamentosPage';
+      } else {
+        alert('Erro ao adicionar equipamento.');
+      }
+    });
+  </script>
 </body>
 </html>

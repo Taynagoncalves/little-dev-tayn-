@@ -5,10 +5,15 @@ CREATE TABLE pessoas (
     nome VARCHAR(50) NOT NULL
 );
 
+
 CREATE TABLE categorias (
-    id_categoria INT PRIMARY KEY AUTO_INCREMENT,
-    nome_categoria ENUM('Tecnologia','Automotiva','Construção Civil') NOT NULL
+  id_categoria INT PRIMARY KEY AUTO_INCREMENT,
+  nome_categoria VARCHAR(50) NOT NULL
 );
+
+INSERT INTO categorias (nome_categoria)
+VALUES ('Tecnologia'), ('Automotiva'), ('Construção Civil');
+
 
 CREATE TABLE equipamentos (
     id_equipamento INT PRIMARY KEY AUTO_INCREMENT,

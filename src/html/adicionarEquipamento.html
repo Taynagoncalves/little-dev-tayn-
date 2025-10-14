@@ -4,206 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Adicionar Equipamento - Plataforma SENAI</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background-color: #f5f6fa;
-      display: flex;
-      min-height: 100vh;
-    }
-
-    /* ====== SIDEBAR ====== */
-    .sidebar {
-      width: 240px;
-      background: #111D4A;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 25px 0;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-      position: fixed;
-      top: 0;
-      left: 0;
-      height: 100vh;
-    }
-
-    .sidebar .logo {
-      text-align: center;
-      margin-bottom: 30px;
-    }
-
-    .sidebar .logo img {
-      width: 140px;
-    }
-
-    .sidebar .menu {
-      list-style: none;
-      padding: 0;
-      margin-top: 10px;
-      width: 100%;
-    }
-
-    .sidebar .menu li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 25px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .sidebar .menu li img {
-      width: 22px;
-    }
-
-    .sidebar .menu li a {
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-    }
-
-    .sidebar .menu li:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .sidebar .menu li.ativo {
-      background: rgba(255, 255, 255, 0.15);
-      border-left: 4px solid white;
-    }
-
-    /* ====== CONTEÚDO PRINCIPAL ====== */
-    .main-content {
-      margin-left: 240px;
-      flex: 1;
-      padding: 50px 40px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-    }
-
-    .main-content h1 {
-      color: #111D4A;
-      font-size: 26px;
-      margin-bottom: 25px;
-      text-align: center;
-      font-weight: 600;
-    }
-
-    /* ====== FORMULÁRIO ====== */
-    form {
-      background: white;
-      padding: 30px;
-      border-radius: 16px;
-      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-      width: 100%;
-      max-width: 750px;
-      display: flex;
-      flex-direction: column;
-      gap: 25px;
-      transition: all 0.3s ease;
-    }
-
-    .upload-container {
-      text-align: center;
-      border: 2px dashed #111D4A;
-      border-radius: 12px;
-      padding: 30px;
-      cursor: pointer;
-      background-color: #f8f9fd;
-      transition: all 0.3s ease;
-    }
-
-    .upload-container:hover {
-      background-color: #eaeefc;
-    }
-
-    .upload-container img {
-      width: 60px;
-      margin-bottom: 10px;
-      opacity: 0.8;
-    }
-
-    .upload-container p {
-      font-size: 14px;
-      color: #444;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 20px;
-    }
-
-    .form-grid div {
-      display: flex;
-      flex-direction: column;
-    }
-
-    label {
-      font-weight: 600;
-      margin-bottom: 6px;
-      color: #333;
-    }
-
-    input, select {
-      padding: 10px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
-      font-size: 15px;
-      transition: all 0.3s ease;
-    }
-
-    input:focus, select:focus {
-      outline: none;
-      border-color: #111D4A;
-      box-shadow: 0 0 0 2px rgba(17, 29, 74, 0.1);
-    }
-
-    .btn-azul {
-      background: #111D4A;
-      color: white;
-      border: none;
-      padding: 12px 0;
-      border-radius: 8px;
-      font-size: 16px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.3s;
-    }
-
-    .btn-azul:hover {
-      background: #182b6f;
-      transform: translateY(-2px);
-      box-shadow: 0 4px 12px rgba(17, 29, 74, 0.2);
-    }
-
-    @media (max-width: 768px) {
-      .sidebar {
-        width: 100%;
-        flex-direction: row;
-        justify-content: space-around;
-        padding: 10px;
-        height: auto;
-        position: relative;
-      }
-
-      .main-content {
-        margin-left: 0;
-        padding: 25px;
-      }
-
-      .form-grid {
-        grid-template-columns: 1fr;
-      }
-
-      form {
-        padding: 20px;
-      }
-    }
-  </style>
+  <link rel="stylesheet" href="../css/adicionarEquipamento.css">
 </head>
 <body>
   <div class="sidebar">
@@ -214,9 +15,12 @@
       <li><img src="../iconsLateral/menuBranco.png"><a href="dashboard.html">Dashboard</a></li>
       <li><img src="../iconsLateral/carteiraBranca.png"><a href="emprestimos.html">Empréstimos</a></li>
       <li class="ativo"><img src="../iconsLateral/equipamentosBranco.png"><a href="equipamentos.html">Equipamentos</a></li>
+      <li><img src="../iconsLateral/relatorioBranco.png"><a href="relatorios.html">Relatórios</a></li>
+      <li><img src="../iconsLateral/reservasBranco.png"><a href="reservas.html">Reservas</a></li>
+      <li><img src="../iconsLateral/devolucaoBranca.png"><a href="devolucoes.html">Devoluções</a></li>
+      <li><img src="../iconsLateral/configBranca.png"><a href="configuracoes.html">Configurações</a></li>
     </ul>
   </div>
-
   <div class="main-content">
     <h1>Adicionar Novo Equipamento</h1>
 
@@ -238,34 +42,8 @@
     </form>
   </div>
 
-  <script>
-    async function carregarCategorias() {
-      const res = await fetch('/categorias');
-      const categorias = await res.json();
-      const select = document.getElementById('categoriaSelect');
-      categorias.forEach(cat => {
-        const option = document.createElement('option');
-        option.value = cat.id_categoria;
-        option.textContent = cat.nome_categoria;
-        select.appendChild(option);
-      });
-    }
+  <script src="../js/adicionarEquipamento.js"></script>
+  <script src="../js/dashboard.js"></script>
 
-    carregarCategorias();
-
-    document.getElementById('formEquipamento').addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const formData = new FormData(e.target);
-      const res = await fetch('/equipamentos', { method: 'POST', body: formData });
-
-      if (res.ok) {
-        alert('Equipamento adicionado com sucesso!');
-        window.location.href = '/equipamentosPage';
-      } else {
-        alert('Erro ao adicionar equipamento.');
-      }
-    });
-  </script>
 </body>
 </html>

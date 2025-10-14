@@ -1,3 +1,4 @@
+// ==================== IMPORTAÇÕES ====================
 const express = require('express');
 const path = require('path');
 const util = require('util');
@@ -6,8 +7,12 @@ const connection = require('./models/db');
 
 const app = express();
 const query = util.promisify(connection.query).bind(connection);
-const upload = multer();
 
+// Configuração correta do multer (mantém arquivo na memória)
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
+
+// ==================== CONFIGURAÇÕES ====================
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'src')));
 
@@ -31,12 +36,12 @@ app.get('/equipamentos', async (req, res) => {
     `);
     res.json(equipamentos);
   } catch (err) {
-    console.error('❌ Erro ao listar equipamentos:', err);
+    console.error(' Erro ao listar equipamentos:', err);
     res.status(500).json({ error: 'Erro ao listar equipamentos', details: err.message });
   }
 });
 
-// 🔹 BUSCAR POR ID
+// 🔹 LISTAR POR ID
 app.get('/equipamentos/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -54,15 +59,18 @@ app.get('/equipamentos/:id', async (req, res) => {
 
     res.json(equipamento);
   } catch (err) {
-    console.error('❌ Erro ao buscar equipamento:', err);
+    console.error(' Erro ao buscar equipamento:', err);
     res.status(500).json({ error: 'Erro ao buscar equipamento', details: err.message });
   }
 });
 
-// 🔹 ADICIONAR NOVO
+// 🔹 ADICIONAR NOVO EQUIPAMENTO
 app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
   try {
     const { nome, codigo, valor_agregado, id_categoria } = req.body;
+
+    console.log(' Dados recebidos do formulário:', req.body);
+    console.log(' Arquivo recebido:', req.file ? req.file.originalname : 'Nenhum arquivo');
 
     if (!nome || !codigo || !valor_agregado) {
       return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
@@ -82,10 +90,10 @@ app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
       [nome, codigo, valor_agregado, id_categoria || null, mimetype, buffer]
     );
 
-    console.log(`✅ Equipamento "${nome}" adicionado com sucesso.`);
+    console.log(`Equipamento "${nome}" adicionado com sucesso.`);
     res.json({ message: 'Equipamento adicionado com sucesso!' });
   } catch (err) {
-    console.error('❌ Erro ao adicionar equipamento:', err);
+    console.error(' Erro ao adicionar equipamento:', err);
     res.status(500).json({ error: 'Erro ao adicionar equipamento', details: err.message });
   }
 });
@@ -117,10 +125,10 @@ app.put('/equipamentos/:id', upload.single('imagem'), async (req, res) => {
       );
     }
 
-    console.log(`✏️ Equipamento ${id} atualizado com sucesso.`);
+    console.log(` Equipamento ${id} atualizado com sucesso.`);
     res.json({ message: 'Equipamento atualizado com sucesso!' });
   } catch (err) {
-    console.error('❌ Erro ao atualizar equipamento:', err);
+    console.error(' Erro ao atualizar equipamento:', err);
     res.status(500).json({ error: 'Erro ao atualizar equipamento', details: err.message });
   }
 });
@@ -133,10 +141,10 @@ app.delete('/equipamentos/:id', async (req, res) => {
     if (result.affectedRows === 0) {
       return res.status(404).json({ error: 'Equipamento não encontrado.' });
     }
-    console.log(`🗑️ Equipamento ${id} excluído com sucesso.`);
+    console.log(` Equipamento ${id} excluído com sucesso.`);
     res.json({ message: 'Equipamento excluído com sucesso!' });
   } catch (err) {
-    console.error('❌ Erro ao excluir equipamento:', err);
+    console.error(' Erro ao excluir equipamento:', err);
     res.status(500).json({ error: 'Erro ao excluir equipamento', details: err.message });
   }
 });
@@ -154,5 +162,5 @@ app.get('/categorias', async (req, res) => {
 
 // ==================== INICIAR SERVIDOR ====================
 app.listen(8080, () => {
-  console.log('🚀 Servidor rodando em: http://localhost:8080');
+  console.log(' Servidor rodando em: http://localhost:8080');
 });

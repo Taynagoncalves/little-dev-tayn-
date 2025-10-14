@@ -1,375 +1,255 @@
-/* Definição de Variáveis CSS para facilitar a manutenção */
-:root {
-  --primary-blue: #111D4A; /* Azul Escuro (cor solicitada) */
-  --text-dark: #333;
-  --text-light: #555;
-  --available-green: #bada55; /* Cor verde para 'Disponível' */
-  --loaned-orange: #ffb366; /* Cor laranja para 'Emprestado' */
-  --edit-blue: var(--primary-blue); /* Letra do botão EDITAR */
-  --delete-orange: #f87440; /* Laranja para 'Excluir' */
-  --border-light: #e0e0e0;
-  --box-shadow-light: 0 4px 8px rgba(0, 0, 0, 0.05);
-}
-
-/* Reset básico e tipografia */
-* {
-  box-sizing: border-box;
+body {
   margin: 0;
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f6fa;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 240px;
+  background: #111D4A;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+}
+
+.sidebar .logo img {
+  width: 140px;
+  margin-bottom: 25px;
+}
+
+.menu {
+  list-style: none;
   padding: 0;
+  width: 100%;
 }
 
-/* O estilo 'body' de layout é agora gerenciado pelo dashboard.css */
-
-/* Container adaptado para funcionar dentro de main-content */
-.container-equipamentos {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-  padding-top: 40px; 
-  padding-bottom: 40px;
+.menu li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 25px;
+  cursor: pointer;
+  transition: background 0.3s;
 }
 
-    /* ====== SIDEBAR ====== */
-    .sidebar {
-      width: 240px;
-      background: #111D4A;
-      color: white;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      padding: 25px 0;
-      box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-      
-      top: 0;
-      left: 0;
-      height: 100vh;
-    }
+.menu li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
 
-    .sidebar .logo {
-      text-align: center;
-      margin-bottom: 30px;
-    }
+.menu li a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
 
-    .sidebar .logo img {
-      width: 140px;
-    }
+.menu li.ativo {
+  background: rgba(255, 255, 255, 0.15);
+  border-left: 4px solid white;
+}
 
-    .sidebar .menu {
-      list-style: none;
-      padding: 0;
-      margin-top: 10px;
-      width: 100%;
-    }
+/* Conteúdo principal */
+.main-content {
+  margin-left: 240px;
+  flex: 1;
+  padding: 40px;
+}
 
-    .sidebar .menu li {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      padding: 12px 25px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .sidebar .menu li img {
-      width: 22px;
-    }
-
-    .sidebar .menu li a {
-      color: white;
-      text-decoration: none;
-      font-size: 15px;
-      font-weight: 500;
-    }
-
-    .sidebar .menu li:hover {
-      background: rgba(255, 255, 255, 0.1);
-    }
-
-    .sidebar .menu li.ativo {
-      background: rgba(255, 255, 255, 0.15);
-      border-left: 4px solid white;
-    }
-  
-/* Título Principal - COR #111D4A GARANTIDA AQUI */
 .main-title {
-  color: var(--primary-blue);
-  font-size: 2.5em;
-  font-weight: bold;
-  margin-bottom: 20px;
+  color: #111D4A;
+  font-size: 26px;
+  font-weight: 600;
+  text-align: center;
 }
 
-/* Área de Busca e Botão Adicionar */
 .header-actions {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 25px;
 }
 
 .search-box {
   display: flex;
   align-items: center;
-  border: 1px solid var(--border-light);
-  /* Borda menos quadrada */
-  border-radius: 6px; 
-  padding: 8px 10px;
-  background-color: white;
-  width: 65%;
+  background: white;
+  border-radius: 8px;
+  padding: 8px 12px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  width: 280px;
 }
 
-.search-icon {
-  color: var(--text-light);
-  margin-right: 10px;
-}
-
-.search-box input[type="text"] {
+.search-box input {
   border: none;
   outline: none;
-  flex-grow: 1;
-  font-size: 1em;
+  flex: 1;
+  font-size: 14px;
+  padding-left: 8px;
 }
 
-/* Botão Adicionar - COR #111D4A GARANTIDA NO FUNDO */
 .add-button {
-  background-color: var(--primary-blue);
+  background: #111D4A;
   color: white;
   border: none;
-  padding: 12px 20px;
-  /* Borda menos quadrada */
-  border-radius: 6px; 
-  font-size: 1em;
-  font-weight: bold;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s;
-  width: 30%;
+  transition: all 0.3s ease;
 }
 
 .add-button:hover {
-  background-color: #0d1633;
+  background: #182b6f;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(17, 29, 74, 0.2);
 }
 
-/* Filtros (Sem alterações de cor significativas, apenas ajuste visual) */
-.filters {
-  display: flex;
-  gap: 30px;
-  margin-bottom: 20px;
+hr.separator {
+  border: none;
+  border-top: 2px solid #e0e0e0;
+  margin-bottom: 25px;
 }
 
-.filter-dropdown {
-  position: relative;
-  cursor: pointer;
-  padding: 5px 0;
-  font-size: 0.9em;
-  color: var(--text-light);
-}
-
-.filter-label {
-  display: block;
-  margin-bottom: 5px;
-  color: var(--text-dark);
-  font-weight: bold;
-}
-
-.filter-selected {
-  border: 1px solid var(--border-light);
-  padding: 5px 25px 5px 10px;
-  border-radius: 4px;
-  background-color: white;
-  position: relative;
-  display: inline-block;
-}
-
-.dropdown-icon {
-  position: absolute;
-  right: 5px;
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 0.7em;
-  color: var(--text-light);
-}
-
-.dropdown-content {
-  display: none;
-  position: absolute;
-  background-color: #f9f9f9;
-  min-width: 150px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-  z-index: 1;
-  border-radius: 4px;
-  margin-top: 5px;
-}
-
-.dropdown-content a {
-  color: black;
-  padding: 8px 12px;
-  text-decoration: none;
-  display: block;
-}
-
-/* Separador */
-.separator {
-  border: 0;
-  height: 1px;
-  background-color: var(--border-light);
-  margin-bottom: 30px;
-}
-
-/* Grade de Equipamentos (Cards) */
+/* Grid dos cards */
 .equipment-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr); 
-  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 25px;
 }
 
-/* Ajuste principal para cards arredondados */
 .equipment-card {
-  background-color: white;
-  border: 1px solid var(--border-light);
-  /* MAIS ARREDONDADO */
-  border-radius: 12px; 
-  box-shadow: var(--box-shadow-light);
-  padding: 15px;
-  text-align: center;
-  transition: transform 0.2s;
+  background: white;
+  border-radius: 14px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 .equipment-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+  transform: translateY(-4px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.15);
 }
 
 .equipment-image {
   width: 100%;
-  max-width: 100px;
-  height: auto;
-  margin-bottom: 10px;
-  background-color: #e6e6e6; 
-  border-radius: 4px;
+  height: 150px;
+  object-fit: cover;
+  background-color: #f0f0f0;
 }
 
-/* TÍTULOS DOS CARDS - COR #111D4A GARANTIDA AQUI */
+.card-content {
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
 .card-content h3 {
-  font-size: 1.1em;
-  margin-bottom: 5px;
-  color: var(--primary-blue);
+  font-size: 17px;
+  color: #111D4A;
+  margin: 0;
 }
 
-.card-content p {
-  font-size: 0.85em;
-  color: var(--text-light);
-  margin-bottom: 3px;
+.category {
+  color: #555;
+  font-size: 14px;
 }
 
-.card-content .code {
-  font-weight: bold;
-  color: var(--text-dark);
+.code {
+  font-size: 13px;
+  color: #888;
 }
 
-/* Status (Disponível/Emprestado) */
 .status {
+  margin-top: 8px;
   display: inline-block;
   padding: 4px 10px;
-  border-radius: 20px;
-  font-size: 0.8em;
-  font-weight: bold;
-  margin: 10px 0;
-  text-transform: uppercase;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 600;
+  text-align: center;
+  width: fit-content;
 }
 
-.status.available {
-  background-color: var(--available-green);
-  /* Letra escura no fundo claro para contraste */
-  color: var(--primary-blue); 
+.available {
+  background-color: #C8E6C9;
+  color: #2E7D32;
 }
 
-.status.loaned {
-  background-color: var(--loaned-orange);
-  /* Letra escura no fundo claro para contraste */
-  color: var(--primary-blue); 
+.borrowed {
+  background-color: #BBDEFB;
+  color: #1565C0;
 }
 
-/* Botões de Ação (Editar/Excluir) */
+.late {
+  background-color: #FFCCBC;
+  color: #E64A19;
+}
+
+/* Botões de ação */
 .card-actions {
   display: flex;
-  gap: 10px;
-  margin-top: 10px;
+  justify-content: space-between;
+  padding: 10px 15px 15px;
+  margin-top: auto;
 }
 
-.action-button {
+.btn {
   flex: 1;
-  padding: 8px 0;
   border: none;
-  /* Ajuste para botões menos quadrados */
-  border-radius: 6px; 
-  font-size: 0.9em;
-  font-weight: bold;
+  padding: 8px 0;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.3s, opacity 0.3s;
+  transition: all 0.2s ease;
+  margin: 0 3px;
 }
 
-.action-button:hover {
-  opacity: 0.8;
-}
-
-/* Botão EDITAR - COR #111D4A GARANTIDA NA BORDA E LETRA */
-.edit-button {
-  background-color: white;
-  color: var(--edit-blue);
-  border: 1px solid var(--edit-blue);
-}
-
-.delete-button {
-  background-color: var(--delete-orange);
+.btn-edit {
+  background-color: #1976D2;
   color: white;
-  border: 1px solid var(--delete-orange);
 }
 
-
-/* --- RESPONSIVIDADE (Mantida) --- */
-
-/* Telas Médias (Tablets) */
-@media (max-width: 992px) {
-  .equipment-grid {
-      grid-template-columns: repeat(3, 1fr); 
-  }
-  
-  .header-actions {
-      flex-direction: column;
-      gap: 15px;
-  }
-
-  .search-box, .add-button {
-      width: 100%;
-  }
+.btn-edit:hover {
+  background-color: #1565C0;
 }
 
-/* Telas Pequenas (Celulares) */
+.btn-delete {
+  background-color: #E53935;
+  color: white;
+}
+
+.btn-delete:hover {
+  background-color: #C62828;
+}
+
 @media (max-width: 768px) {
-  .main-title {
-      font-size: 2em;
-  }
-  
-  .filters {
-      flex-direction: column; 
-      gap: 15px;
+  .main-content {
+    margin-left: 0;
+    padding: 20px;
   }
 
-  .filter-dropdown {
-      width: 100%;
+  .header-actions {
+    flex-direction: column;
+    gap: 10px;
   }
 
-  .filter-selected {
-      width: 100%;
-  }
-
-  .equipment-grid {
-      grid-template-columns: repeat(2, 1fr); 
-  }
-}
-
-/* Telas Muito Pequenas */
-@media (max-width: 480px) {
-  .equipment-grid {
-      grid-template-columns: 1fr; 
+  .search-box {
+    width: 100%;
   }
 }

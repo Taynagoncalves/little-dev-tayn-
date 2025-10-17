@@ -3,12 +3,6 @@ CREATE DATABASE gestao_materiais CHARACTER SET utf8mb4 COLLATE utf8mb4_general_c
 USE gestao_materiais;
 
 
-CREATE TABLE pessoas (
-    id_pessoa INT PRIMARY KEY AUTO_INCREMENT,
-    nome VARCHAR(50) NOT NULL
-);
-
-
 CREATE TABLE categorias (
   id_categoria INT PRIMARY KEY AUTO_INCREMENT,
   nome_categoria VARCHAR(50) NOT NULL
@@ -32,26 +26,24 @@ CREATE TABLE equipamentos (
 );
 
 
+
 CREATE TABLE emprestimos (
     id_emprestimo INT PRIMARY KEY AUTO_INCREMENT,
-    id_pessoa INT NOT NULL,
+    nome_pessoa VARCHAR(100) NOT NULL,  
     id_equipamento INT NOT NULL,
     data_emprestimo DATE NOT NULL,
     data_prevista_devolucao DATE NOT NULL,
     data_devolucao DATE,
     status ENUM('Emprestado','Devolvido','Atrasado') DEFAULT 'Emprestado',
-    FOREIGN KEY (id_pessoa) REFERENCES pessoas(id_pessoa),
     FOREIGN KEY (id_equipamento) REFERENCES equipamentos(id_equipamento)
 );
 
-
 CREATE TABLE reservas (
     id_reserva INT PRIMARY KEY AUTO_INCREMENT,
-    id_pessoa INT NOT NULL,
+    nome_pessoa VARCHAR(100) NOT NULL, 
     id_equipamento INT NOT NULL,
     data_reserva DATE NOT NULL,
     status ENUM('Ativo','Concluído') DEFAULT 'Ativo',
-    FOREIGN KEY (id_pessoa) REFERENCES pessoas(id_pessoa),
     FOREIGN KEY (id_equipamento) REFERENCES equipamentos(id_equipamento)
 );
 

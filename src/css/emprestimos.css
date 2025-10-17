@@ -180,6 +180,36 @@ tr:nth-child(even) td {
   display: inline-block;
   min-width: 80px;
 }
+.btn-devolver {
+  background-color: #111D4A;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  margin-right: 5px;
+  transition: background-color 0.3s;
+}
+
+.btn-devolver:hover {
+  background-color: #0e1638;
+}
+
+.btn-excluir {
+  background-color: #C0392B;
+  color: white;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+.btn-excluir:hover {
+  background-color: #992D22;
+}
 
 /* Classes de cores */
 .devolvido { background-color: #C8E6C9; color: #2E7D32; } /* Verde para Devolvido */

@@ -1,65 +1,90 @@
-document.addEventListener('DOMContentLoaded', () => {
-  // 1. Funcionalidade para o botão "Adicionar Novo Equipamento"
-  const addButton = document.querySelector('.add-button');
-  if (addButton) {
-      addButton.addEventListener('click', () => {
-          alert('Ação: Abrir formulário para adicionar novo equipamento.');
-      });
-  }
-
-  // 2. Funcionalidade para os botões "Editar" e "Excluir"
-  const actionButtons = document.querySelectorAll('.action-button');
-  actionButtons.forEach(button => {
-      button.addEventListener('click', (event) => {
-          const action = event.target.getAttribute('data-action'); // 'edit' ou 'delete'
-          const id = event.target.getAttribute('data-id'); // Código do equipamento
-
-          if (action === 'edit') {
-              alert(`Ação: Editar equipamento de CÓDIGO: ${id}`);
-          } else if (action === 'delete') {
-              if (confirm(`Tem certeza que deseja EXCLUIR o equipamento de CÓDIGO: ${id}?`)) {
-                  alert(`Ação: Equipamento ${id} excluído com sucesso (simulado).`);
-                  // Em uma aplicação real, você faria uma requisição para o servidor aqui.
-              }
-          }
-      });
-  });
-
-  // 3. Funcionalidade para o Dropdown dos Filtros (exibição/ocultação)
-  const filterDropdowns = document.querySelectorAll('.filter-dropdown');
-
-  filterDropdowns.forEach(dropdown => {
-      const selected = dropdown.querySelector('.filter-selected');
-      const content = dropdown.querySelector('.dropdown-content');
-
-      // Toggle do dropdown ao clicar no seletor
-      selected.addEventListener('click', (e) => {
-          // Previne o fechamento imediato
-          e.stopPropagation(); 
-          content.style.display = content.style.display === 'block' ? 'none' : 'block';
-      });
-
-      // Simula a seleção de uma opção
-      const options = content.querySelectorAll('a');
-      options.forEach(option => {
-          option.addEventListener('click', (e) => {
-              e.preventDefault();
-              // Atualiza o texto do filtro selecionado
-              selected.textContent = option.textContent; 
-              // Oculta o dropdown
-              content.style.display = 'none'; 
-              
-              // Em uma aplicação real, você ativaria a função de filtro de dados aqui.
-              alert(`Filtro "${dropdown.querySelector('.filter-label').textContent}" alterado para: ${option.textContent}`);
+// ==================== LISTAR EQUIPAMENTOS ====================
+document.addEventListener('DOMContentLoaded', async () => {
+    const container = document.getElementById('equipamentos-container');
+    const searchInput = document.getElementById('search-input');
+  
+    async function carregarEquipamentos(filtro = '') {
+      try {
+        container.innerHTML = '<p>Carregando equipamentos...</p>';
+        const res = await fetch('/equipamentos');
+        const equipamentos = await res.json();
+  
+        container.innerHTML = '';
+  
+        const filtrados = equipamentos.filter(e =>
+          e.nome.toLowerCase().includes(filtro.toLowerCase())
+        );
+  
+        if (filtrados.length === 0) {
+          container.innerHTML = '<p>Nenhum equipamento encontrado.</p>';
+          return;
+        }
+  
+        filtrados.forEach(equip => {
+          const card = document.createElement('div');
+          card.classList.add('equipment-card');
+  
+          const imgSrc = equip.dados
+            ? `data:${equip.tipo_mime};base64,${arrayBufferToBase64(equip.dados.data)}`
+            : '../imagens/placeholder.png';
+  
+          card.innerHTML = `
+            <img src="${imgSrc}" alt="${equip.nome}" class="equipment-image">
+            <h3>${equip.nome}</h3>
+            <p><strong>Código:</strong> ${equip.codigo}</p>
+            <p><strong>Categoria:</strong> ${equip.nome_categoria || 'Sem categoria'}</p>
+            <p><strong>Valor Agregado:</strong> ${equip.valor_agregado}</p>
+            <div class="card-actions">
+              <button class="edit-btn" data-id="${equip.id_equipamento}">Editar</button>
+              <button class="delete-btn" data-id="${equip.id_equipamento}">Excluir</button>
+            </div>
+          `;
+  
+          container.appendChild(card);
+        });
+  
+        // Eventos dos botões
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+          btn.addEventListener('click', async () => {
+            const id = btn.dataset.id;
+            if (confirm('Tem certeza que deseja excluir este equipamento?')) {
+              const delRes = await fetch(`/equipamentos/${id}`, { method: 'DELETE' });
+              const msg = await delRes.json();
+              alert(msg.message || 'Equipamento excluído');
+              carregarEquipamentos();
+            }
           });
-      });
+        });
+  
+        document.querySelectorAll('.edit-btn').forEach(btn => {
+          btn.addEventListener('click', () => {
+            const id = btn.dataset.id;
+            window.location.href = `editarEquipamento.html?id=${id}`;
+          });
+        });
+  
+      } catch (err) {
+        console.error('Erro ao carregar equipamentos:', err);
+        container.innerHTML = '<p>Erro ao carregar equipamentos.</p>';
+      }
+    }
+  
+    // Função auxiliar: converter buffer para Base64
+    function arrayBufferToBase64(buffer) {
+      let binary = '';
+      const bytes = new Uint8Array(buffer);
+      const len = bytes.byteLength;
+      for (let i = 0; i < len; i++) {
+        binary += String.fromCharCode(bytes[i]);
+      }
+      return window.btoa(binary);
+    }
+  
+    // Filtro de pesquisa
+    searchInput.addEventListener('input', e => {
+      carregarEquipamentos(e.target.value);
+    });
+  
+    carregarEquipamentos();
   });
-
-  // Fecha todos os dropdowns se clicar fora deles
-  document.addEventListener('click', () => {
-      document.querySelectorAll('.dropdown-content').forEach(content => {
-          content.style.display = 'none';
-      });
-  });
-
-});
+  

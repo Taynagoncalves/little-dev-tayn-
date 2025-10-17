@@ -8,25 +8,103 @@ const connection = require('./models/db');
 const app = express();
 const query = util.promisify(connection.query).bind(connection);
 
-// Configuração correta do multer (mantém arquivo na memória)
+
 const storage = multer.memoryStorage();
 const upload = multer({ storage });
 
-// ==================== CONFIGURAÇÕES ====================
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'src')));
 
-// ==================== ROTAS DE PÁGINAS ====================
+
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'src/html/index.html')));
+
 app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'src/html/dashboard.html')));
+
 app.get('/emprestimos', (req, res) => res.sendFile(path.join(__dirname, 'src/html/emprestimos.html')));
+
 app.get('/equipamentosPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/equipamentos.html')));
+
 app.get('/adicionarEquipamentoPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/adicionarEquipamento.html')));
+
 app.get('/editarEquipamentoPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/editarEquipamento.html')));
 
-// ==================== ROTAS DE EQUIPAMENTOS ====================
+// index.js (Adicione estas rotas)
 
-// 🔹 LISTAR TODOS
+// ==================== ROTAS DE EMPRÉSTIMOS ====================
+
+// Rota para listar equipamentos DISPONÍVEIS para o SELECT
+app.get('/equipamentos/disponiveis', async (req, res) => {
+  try {
+    const equipamentos = await query(`
+      SELECT id_equipamento, nome
+      FROM equipamentos
+      WHERE disponibilidade = 'Disponível'
+    `);
+    res.json(equipamentos);
+  } catch (err) {
+    console.error(' Erro ao listar equipamentos disponíveis:', err);
+    res.status(500).json({ error: 'Erro ao listar equipamentos disponíveis', details: err.message });
+  }
+});
+
+// Rota para adicionar um novo empréstimo (clicar em "Adicionar")
+app.post('/emprestimos', async (req, res) => {
+  try {
+    // ATENÇÃO: O id_pessoa é uma chave estrangeira. 
+    // Você deve garantir que a pessoa esteja cadastrada na tabela 'pessoas' e que seu ID seja enviado no corpo da requisição.
+    const { id_pessoa, id_equipamento, data_emprestimo, data_prevista_devolucao } = req.body;
+
+    if (!id_pessoa || !id_equipamento || !data_emprestimo || !data_prevista_devolucao) {
+      return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
+    }
+    
+    // 1. Inserir o novo empréstimo na tabela 'emprestimos'
+    const insertResult = await query(
+      `INSERT INTO emprestimos (id_pessoa, id_equipamento, data_emprestimo, data_prevista_devolucao)
+       VALUES (?, ?, ?, ?)`,
+      [id_pessoa, id_equipamento, data_emprestimo, data_prevista_devolucao]
+    );
+
+    // 2. Atualizar a disponibilidade do equipamento para 'Emprestado'
+    await query(
+      `UPDATE equipamentos
+       SET disponibilidade = 'Emprestado'
+       WHERE id_equipamento = ?`,
+      [id_equipamento]
+    );
+
+    console.log(` Empréstimo adicionado com sucesso. ID: ${insertResult.insertId}`);
+    res.json({ message: 'Empréstimo adicionado com sucesso!', id: insertResult.insertId });
+  } catch (err) {
+    console.error(' Erro ao adicionar empréstimo:', err);
+    res.status(500).json({ error: 'Erro ao adicionar empréstimo', details: err.message });
+  }
+});
+
+
+// Rota para listar EMPRÉSTIMOS ATIVOS (status = 'Emprestado' ou 'Atrasado')
+app.get('/emprestimos/ativos', async (req, res) => {
+  try {
+    const emprestimos = await query(`
+      SELECT
+        e.id_emprestimo,
+        p.nome AS nome_pessoa,
+        eq.nome AS nome_equipamento,
+        DATE_FORMAT(e.data_emprestimo, '%d/%m/%Y') AS data_emprestimo,
+        DATE_FORMAT(e.data_prevista_devolucao, '%d/%m/%Y') AS data_prevista_devolucao,
+        e.status
+      FROM emprestimos e
+      JOIN pessoas p ON e.id_pessoa = p.id_pessoa
+      JOIN equipamentos eq ON e.id_equipamento = eq.id_equipamento
+      WHERE e.status IN ('Emprestado', 'Atrasado')
+      ORDER BY e.data_prevista_devolucao ASC
+    `);
+    res.json(emprestimos);
+  } catch (err) {
+    console.error(' Erro ao listar empréstimos ativos:', err);
+    res.status(500).json({ error: 'Erro ao listar empréstimos ativos', details: err.message });
+  }
+});
 app.get('/equipamentos', async (req, res) => {
   try {
     const equipamentos = await query(`
@@ -41,7 +119,7 @@ app.get('/equipamentos', async (req, res) => {
   }
 });
 
-// 🔹 LISTAR POR ID
+
 app.get('/equipamentos/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -64,7 +142,7 @@ app.get('/equipamentos/:id', async (req, res) => {
   }
 });
 
-// 🔹 ADICIONAR NOVO EQUIPAMENTO
+
 app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
   try {
     const { nome, codigo, valor_agregado, id_categoria } = req.body;
@@ -98,7 +176,7 @@ app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
   }
 });
 
-// 🔹 EDITAR EXISTENTE
+
 app.put('/equipamentos/:id', upload.single('imagem'), async (req, res) => {
   const { id } = req.params;
   const { nome, codigo, valor_agregado, id_categoria } = req.body;
@@ -133,7 +211,7 @@ app.put('/equipamentos/:id', upload.single('imagem'), async (req, res) => {
   }
 });
 
-// 🔹 EXCLUIR
+
 app.delete('/equipamentos/:id', async (req, res) => {
   const { id } = req.params;
   try {
@@ -149,7 +227,7 @@ app.delete('/equipamentos/:id', async (req, res) => {
   }
 });
 
-// ==================== ROTAS DE CATEGORIAS ====================
+
 app.get('/categorias', async (req, res) => {
   try {
     const categorias = await query('SELECT * FROM categorias');
@@ -160,7 +238,7 @@ app.get('/categorias', async (req, res) => {
   }
 });
 
-// ==================== INICIAR SERVIDOR ====================
+
 app.listen(8080, () => {
   console.log(' Servidor rodando em: http://localhost:8080');
 });

@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Empréstimos</title> 
+<link rel="stylesheet" href="../css/dashboard.css">
 <link rel="stylesheet" href="../css/emprestimos.css">
 </head>
 <body>
@@ -49,108 +50,52 @@
 <div class="main">
   <h1>Empréstimos</h1>
 
-  <div class="form-container">
+  <form id="formEmprestimo" class="form-container">
     <div>
-      <label>Nome:</label>
-      <input type="text" placeholder="">
+      <label for="nomePessoa">Nome:</label>
+      <input type="text" id="nomePessoa" placeholder="Nome do Responsável" required>
     </div>
     <div>
-      <label>Equipamentos:</label>
-      <select>
-        <option>Selecione o Equipamento</option>
+      <label for="selectEquipamento">Equipamentos:</label>
+      <select id="selectEquipamento" name="id_equipamento" required>
+        <option value="" disabled selected>Selecione o Equipamento</option>
       </select>
     </div>
     <div>
-      <label>Sala/Local:</label>
-      <input type="text" placeholder="">
+      <label for="dataEmprestimo">Data do empréstimo:</label>
+      <input type="date" id="dataEmprestimo" name="data_emprestimo" required>
     </div>
     <div>
-      <label>Data do empréstimo:</label>
-      <input type="date">
+      <label for="dataPrevistaDevolucao">Data da devolução:</label>
+      <input type="date" id="dataPrevistaDevolucao" name="data_prevista_devolucao" required>
     </div>
     <div>
-      <label>Data da devolução:</label>
-      <input type="date">
+      <button type="submit" id="btnAdicionar">Adicionar</button>
     </div>
-    <div>
-      <button>Adicionar</button>
-    </div>
-  </div>
+  </form>
 
   <h2>Empréstimos Ativos</h2>
-  <table>
-    <thead>
-      <tr>
-        <th>ID</th>
-        <th>Nome</th>
-        <th>Equipamento</th>
-        <th>Sala/Local</th>
-        <th>DT/Emp</th>
-        <th>DT/Dev</th>
-        <th>Status</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>Nathalia Cordella</td>
-        <td>Notebook Dell</td>
-        <td>Lab. Info</td>
-        <td>20/09/2025</td>
-        <td>23/09/2025</td>
-        <td><span class="status devolvido">Devolvido</span></td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>Ana Pereira</td>
-        <td>Furadeira Bosch</td>
-        <td>Lab. Info</td>
-        <td>21/09/2025</td>
-        <td>23/09/2025</td>
-        <td><span class="status devolvido">Devolvido</span></td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>Carlos Mota</td>
-        <td>Projetor Epson</td>
-        <td>Lab. Info</td>
-        <td>22/09/2025</td>
-        <td>23/09/2025</td>
-        <td><span class="status emprestado">Emprestado</span></td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>Beatriz Lima</td>
-        <td>Tablet Samsung</td>
-        <td>Lab. Info</td>
-        <td>23/09/2025</td>
-        <td>23/09/2025</td>
-        <td><span class="status emprestado">Emprestado</span></td>
-      </tr>
-      <tr>
-        <td>5</td>
-        <td>Pedro Rocha</td>
-        <td>Notebook Lenovo</td>
-        <td>Lab. Info</td>
-        <td>23/09/2025</td>
-        <td>23/09/2025</td>
-        <td><span class="status atrasado">Atrasado</span></td>
-      </tr>
-      <tr>
-        <td>6</td>
-        <td>João Silva</td>
-        <td>Notebook Dell</td>
-        <td>Lab. Info</td>
-        <td>24/09/2025</td>
-        <td>23/09/2025</td>
-        <td><span class="status atrasado">Atrasado</span></td>
-      </tr>
-    </tbody>
-  </table>
-
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Responsável</th>
+          <th>Equipamento</th>
+          <th>Data Empréstimo</th>
+          <th>Devolução Prevista</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="tabelaEmprestimosAtivos">
+        <tr><td colspan="7">Carregando empréstimos ativos...</td></tr>
+      </tbody>
+    </table>
+  </div>
 </div>
+
 <script src="../js/emprestimos.js"></script>
-<script src="../js/dashboard.js"></script>
 
 </body>
 </html>

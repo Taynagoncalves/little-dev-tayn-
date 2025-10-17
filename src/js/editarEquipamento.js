@@ -1,80 +1,105 @@
-async function carregarEquipamentos() {
-    try {
-      const res = await fetch('/equipamentos');
-      const equipamentos = await res.json();
-      const container = document.getElementById('equipamentos-container');
-      container.innerHTML = '';
+// ==================== EDITAR EQUIPAMENTO ====================
 
-      if (!equipamentos.length) {
-        container.innerHTML = '<p>Nenhum equipamento encontrado.</p>';
+document.addEventListener("DOMContentLoaded", async () => {
+  const form = document.getElementById("formEditarEquipamento");
+  const preview = document.getElementById("preview");
+  const categoriaSelect = document.getElementById("id_categoria");
+
+  // Função para obter o ID da URL
+  function getEquipamentoId() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("id");
+  }
+
+  const equipamentoId = getEquipamentoId();
+  if (!equipamentoId) {
+    alert("Nenhum equipamento selecionado para edição!");
+    window.location.href = "equipamentos.html";
+    return;
+  }
+
+  // Carrega categorias no select
+  async function carregarCategorias() {
+    try {
+      const res = await fetch("/categorias");
+      const categorias = await res.json();
+      categoriaSelect.innerHTML = "";
+      categorias.forEach(cat => {
+        const opt = document.createElement("option");
+        opt.value = cat.id_categoria;
+        opt.textContent = cat.nome_categoria;
+        categoriaSelect.appendChild(opt);
+      });
+    } catch (err) {
+      console.error("Erro ao carregar categorias:", err);
+    }
+  }
+
+  // Carrega dados do equipamento
+  async function carregarEquipamento() {
+    try {
+      const res = await fetch(`/equipamentos/${equipamentoId}`);
+      const equipamento = await res.json();
+
+      if (!equipamento || equipamento.error) {
+        alert("Equipamento não encontrado!");
+        window.location.href = "equipamentos.html";
         return;
       }
 
-      equipamentos.forEach(eq => {
-        const imgSrc = eq.dados
-          ? `data:${eq.tipo_mine};base64,${arrayBufferToBase64(eq.dados.data)}`
-          : '../imagens/placeholder.png';
+      document.getElementById("nome").value = equipamento.nome;
+      document.getElementById("codigo").value = equipamento.codigo;
+      document.getElementById("valor_agregado").value = equipamento.valor_agregado;
+      categoriaSelect.value = equipamento.id_categoria;
 
-        let statusClass = 'available';
-        if (eq.disponibilidade === 'Emprestado') statusClass = 'borrowed';
-        if (eq.disponibilidade === 'Atrasado') statusClass = 'late';
-
-        const card = document.createElement('div');
-        card.classList.add('equipment-card');
-        card.innerHTML = `
-          <img src="${imgSrc}" alt="${eq.nome}" class="equipment-image">
-          <div class="card-content">
-            <h3>${eq.nome}</h3>
-            <p class="category">${eq.nome_categoria}</p>
-            <p class="code">CÓDIGO: ${eq.codigo}</p>
-            <span class="status ${statusClass}">${eq.disponibilidade}</span>
-          </div>
-          <div class="card-actions">
-            <button class="btn btn-edit" onclick="editarEquipamento(${eq.id_equipamento})">
-              <i class="fas fa-pen"></i> Editar
-            </button>
-            <button class="btn btn-delete" onclick="excluirEquipamento(${eq.id_equipamento})">
-              <i class="fas fa-trash"></i> Excluir
-            </button>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    } catch (error) {
-      console.error('Erro ao carregar equipamentos:', error);
-      document.getElementById('equipamentos-container').innerHTML = '<p>Erro ao carregar equipamentos.</p>';
+      // Exibir imagem, se existir
+      if (equipamento.dados && equipamento.tipo_mime) {
+        const base64 = arrayBufferToBase64(equipamento.dados.data);
+        preview.src = `data:${equipamento.tipo_mime};base64,${base64}`;
+      } else {
+        preview.src = "../imagens/placeholder.png";
+      }
+    } catch (err) {
+      console.error("Erro ao carregar equipamento:", err);
     }
   }
 
+  // Converter buffer em Base64
   function arrayBufferToBase64(buffer) {
-    let binary = '';
+    let binary = "";
     const bytes = new Uint8Array(buffer);
-    bytes.forEach(b => binary += String.fromCharCode(b));
+    const len = bytes.byteLength;
+    for (let i = 0; i < len; i++) {
+      binary += String.fromCharCode(bytes[i]);
+    }
     return window.btoa(binary);
   }
 
-  function editarEquipamento(id) {
-    window.location.href = `editarEquipamento.html=${id}`;
-  }
+  // Atualizar equipamento
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const formData = new FormData(form);
 
-  async function excluirEquipamento(id) {
-    if (confirm('Tem certeza que deseja excluir este equipamento?')) {
-      const res = await fetch(`/equipamentos/${id}`, { method: 'DELETE' });
+    try {
+      const res = await fetch(`/equipamentos/${equipamentoId}`, {
+        method: "PUT",
+        body: formData,
+      });
+
+      const result = await res.json();
+
       if (res.ok) {
-        alert('Equipamento excluído com sucesso!');
-        carregarEquipamentos();
+        alert("Equipamento atualizado com sucesso!");
+        window.location.href = "equipamentos.html";
       } else {
-        alert('Erro ao excluir equipamento.');
+        alert(result.error || "Erro ao atualizar equipamento.");
       }
+    } catch (err) {
+      console.error("Erro ao enviar atualização:", err);
     }
-  }
-
-  carregarEquipamentos();
-
-  document.getElementById('search-input').addEventListener('input', e => {
-    const termo = e.target.value.toLowerCase();
-    document.querySelectorAll('.equipment-card').forEach(card => {
-      const nome = card.querySelector('h3').textContent.toLowerCase();
-      card.style.display = nome.includes(termo) ? 'flex' : 'none';
-    });
   });
+
+  // Carregar tudo
+  await carregarCategorias();
+  await carregarEquipamento();
+});

@@ -1,117 +1,116 @@
-* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
-
-body {
-    margin: 0;
-    font-family: "Poppins", sans-serif;
-    background-color: #f5f6fa;
-    display: flex;
-    min-height: 100vh;
-  }
-
-  /* ====== SIDEBAR ====== */
-  .sidebar {
-    width: 240px;
-    background: #111D4A;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 25px 0;
-    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
-    
-    top: 0;
-    left: 0;
-    height: 100vh;
-  }
-
-  .sidebar .logo {
-    text-align: center;
-    margin-bottom: 30px;
-  }
-
-  .sidebar .logo img {
-    width: 140px;
-  }
-
-  .sidebar .menu {
-    list-style: none;
-    padding: 0;
-    margin-top: 10px;
-    width: 100%;
-  }
-
-  .sidebar .menu li {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 12px 25px;
-    cursor: pointer;
-    transition: background 0.3s;
-  }
-
-  .sidebar .menu li img {
-    width: 22px;
-  }
-
-  .sidebar .menu li a {
-    color: white;
-    text-decoration: none;
-    font-size: 15px;
-    font-weight: 500;
-  }
-
-  .sidebar .menu li:hover {
-    background: rgba(255, 255, 255, 0.1);
-  }
-
-  .sidebar .menu li.ativo {
-    background: rgba(255, 255, 255, 0.15);
-    border-left: 4px solid white;
-  }
-
-
-/* Conteúdo principal */
-
-.main-content {
-margin-left: 500px; 
-padding: 30px;
+* { 
+  margin: 0; 
+  padding: 0; 
+  box-sizing: border-box; 
+  font-family: "Poppins", sans-serif; /* Usando Poppins globalmente */
 }
 
+body {
+  margin: 0;
+  background-color: #f5f6fa;
+  display: flex; /* O principal: alinha sidebar e main lado a lado */
+  min-height: 100vh;
+}
+
+/* ====== SIDEBAR: Ajustado e centralizado ====== */
+.sidebar {
+  width: 240px;
+  background: #111D4A;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px 0;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  height: 100vh; /* Ocupa a altura total */
+  position: sticky; /* Mantém o sidebar visível ao rolar */
+  top: 0;
+}
+
+.sidebar .logo {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.sidebar .logo img {
+  width: 140px;
+}
+
+.sidebar .menu {
+  list-style: none;
+  padding: 0;
+  margin-top: 10px;
+  width: 100%;
+}
+
+.sidebar .menu li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 25px;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.sidebar .menu li img {
+  width: 22px;
+}
+
+.sidebar .menu li a {
+  color: white;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.sidebar .menu li:hover {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.sidebar .menu li.ativo {
+  background: rgba(255, 255, 255, 0.15);
+  border-left: 4px solid white;
+}
+
+
+/* ====== CONTEÚDO PRINCIPAL (.main) ====== */
+/* Corrigido o erro de margin-left: 500px, usando flex: 1 */
+.main {
+  flex: 1; /* Permite que ocupe o espaço restante */
+  padding: 30px;
+}
 
 h1 {
   margin-bottom: 20px;
   color: #111D4A;
 }
 
-/* Formulário */
+/* Formulário (form-container) */
 .form-container {
   background: #fff;
   padding: 20px;
   border-radius: 6px;
   margin-bottom: 30px;
   box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  
+  /* Grid para o layout do formulário */
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  /* 5 colunas para caber 'Nome', 'Equipamento', 'Data Empréstimo', 'Data Devolução' e 'Adicionar' */
+  grid-template-columns: repeat(5, 1fr); 
   gap: 15px;
-  align-items: end;
+  align-items: end; /* Alinha os itens na parte inferior, para o botão "Adicionar" */
+}
+
+.form-container > div {
+  /* Garante que o input/select/botão ocupe o espaço da coluna */
+  width: 100%; 
 }
 
 .form-container label {
   font-weight: bold;
   color: #111D4A;
-}
-.container {
-display: flex;
-}
-
-.sidebar {
-width: 250px; /* largura fixa */
-background-color: #111D4A;
-}
-
-.main-content {
-flex: 1; /* ocupa o restante da tela */
-padding: 20px;
+  display: block;
+  margin-bottom: 5px;
 }
 
 .form-container input,
@@ -121,9 +120,11 @@ padding: 20px;
   border-radius: 4px;
   border: 1px solid #ccc;
   outline: none;
+  box-sizing: border-box;
 }
 
 .form-container button {
+  width: 100%;
   padding: 10px 20px;
   background-color: #7CB342;
   color: #fff;
@@ -139,6 +140,11 @@ padding: 20px;
 }
 
 /* Tabela */
+h2 {
+  color: #111D4A;
+  margin-bottom: 15px;
+}
+
 table {
   width: 100%;
   border-collapse: collapse;
@@ -151,18 +157,20 @@ table {
 th, td {
   padding: 12px 15px;
   text-align: left;
+  border-bottom: 1px solid #eee; /* Adiciona separação visual entre linhas */
 }
 
 th {
   background-color: #e0e0e0;
   color: #111D4A;
+  font-weight: bold;
 }
 
 tr:nth-child(even) td {
   background-color: #f9f9f9;
 }
 
-/* Status */
+/* Estilos para Status */
 .status {
   padding: 5px 10px;
   border-radius: 12px;
@@ -173,6 +181,7 @@ tr:nth-child(even) td {
   min-width: 80px;
 }
 
-.devolvido { background-color: #C8E6C9; color: #2E7D32; }
-.emprestado { background-color: #BBDEFB; color: #1565C0; }
-.atrasado { background-color: #FFCCBC; color: #E64A19; }
+/* Classes de cores */
+.devolvido { background-color: #C8E6C9; color: #2E7D32; } /* Verde para Devolvido */
+.emprestado { background-color: #BBDEFB; color: #1565C0; } /* Azul para Emprestado */
+.atrasado { background-color: #FFCCBC; color: #E64A19; }   /* Laranja/Vermelho para Atrasado */

@@ -1,0 +1,142 @@
+body {
+  margin: 0;
+  font-family: "Poppins", sans-serif;
+  display: flex;
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+/* ====== SIDEBAR ====== */
+  .sidebar {
+    width: 240px;
+    background: #111D4A;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 25px 0;
+    box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+    top: 0;
+    left: 0;
+    height: 100vh;
+    position: fixed;
+  }
+
+  .sidebar .logo {
+    text-align: center;
+    margin-bottom: 30px;
+  }
+
+  .sidebar .logo img {
+    width: 140px;
+  }
+
+  .sidebar .menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 10px;
+    width: 100%;
+  }
+
+  .sidebar .menu li {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 25px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+
+  .sidebar .menu li img {
+    width: 22px;
+  }
+
+  .sidebar .menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+  .sidebar .menu li:hover {
+    background: rgba(255, 255, 255, 0.1);
+  }
+
+  .sidebar .menu li.ativo {
+    background: rgba(255, 255, 255, 0.15);
+    border-left: 4px solid white;
+  }
+
+
+/* MAIN */
+.main {
+  margin-left: 230px;
+  padding: 20px;
+  width: calc(100% - 230px);
+}
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
+
+header h1 {
+  font-size: 28px;
+  color: #111D4A;
+}
+
+#btnDownloadCSV {
+  background-color: #111D4A;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#btnDownloadCSV:hover {
+  background-color: #111D4A;
+}
+
+/* TABELA */
+.table-section {
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+thead {
+  background-color: #111D4A;
+  color: white;
+}
+
+th, td {
+  padding: 12px 10px;
+  border-bottom: 1px solid #ddd;
+  font-size: 15px;
+}
+
+tbody tr:hover {
+  background-color: #f2f6ff;
+}
+
+@media (max-width: 768px) {
+  .main {
+    margin-left: 0;
+    width: 100%;
+  }
+  .sidebar {
+    display: none;
+  }
+}

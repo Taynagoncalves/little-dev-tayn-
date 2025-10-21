@@ -1,0 +1,36 @@
+/* 🌙 Tema escuro global */
+body.dark {
+  background-color: #0a1733;
+  color: #f5f7fa;
+}
+
+body.dark .sidebar {
+  background-color: #142850;
+}
+
+body.dark .menu li a {
+  color: #f5f7fa;
+}
+
+body.dark .menu li.ativo,
+body.dark .menu li:hover {
+  background-color: #1f4068;
+}
+
+body.dark table {
+  background-color: #192841;
+  color: #f5f7fa;
+}
+
+body.dark .tabela th {
+  background-color: #1f4068;
+}
+
+body.dark .tabela td {
+  border-color: #2a4f73;
+}
+
+/* 🎨 Modo daltônico global */
+body.daltonico {
+  filter: hue-rotate(90deg);
+}

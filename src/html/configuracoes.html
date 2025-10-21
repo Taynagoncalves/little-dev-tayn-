@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Configurações - SENAI</title>
+  <link rel="stylesheet" href="../css/dashboard.css" />
+  <link rel="stylesheet" href="../css/configuracoes.css" />
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI" />
+    </div>
+    <ul class="menu">
+      <li><img src="../iconsLateral/menuBranco.png" /><a href="dashboard.html">Dashboard</a></li>
+      <li><img src="../iconsLateral/carteiraBranca.png" /><a href="emprestimos.html">Empréstimos</a></li>
+      <li><img src="../iconsLateral/equipamentosBranco.png" /><a href="equipamentos.html">Equipamentos</a></li>
+      <li><img src="../iconsLateral/relatorioBranco.png" /><a href="relatorios.html">Relatórios</a></li>
+      <li><img src="../iconsLateral/reservasBranco.png" /><a href="reservas.html">Reservas</a></li>
+      <li><img src="../iconsLateral/devolucaoBranca.png" /><a href="devolucoes.html">Devoluções</a></li>
+      <li class="ativo"><img src="../iconsLateral/configBranca.png" /><a href="configuracoes.html">Configurações</a></li>
+    </ul>
+  </div>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="main-content">
+    <h1>Configurações do Sistema</h1>
+
+    <div class="config-card">
+      <div class="config-item">
+        <span> Modo Escuro</span>
+        <label class="switch">
+          <input type="checkbox" id="modoEscuro" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="config-item">
+        <span> Modo Daltônico</span>
+        <label class="switch">
+          <input type="checkbox" id="modoDaltonico" />
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="config-item">
+        <span>Tamanho da Fonte</span>
+        <input type="range" id="tamanhoFonte" min="0.8" max="1.5" step="0.1" />
+      </div>
+
+      <div class="config-item">
+        <span>Ativar Alertas</span>
+        <label class="switch">
+          <input type="checkbox" id="ativarAlertas" />
+          <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+  </div>
+
+  <script src="../js/configuracoes.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/tema.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Devoluções | Gestão de Materiais</title>
+  <link rel="stylesheet" href="../css/devolucoes.css" />
+</head>
+<body>
+     <div class="sidebar">
+    <div class="logo">
+      <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI">
+    </div>
+    <ul class="menu">
+      <li><img src="../iconsLateral/menuBranco.png"><a href="dashboard.html">Dashboard</a></li>
+
+      <li><img src="../iconsLateral/carteiraBranca.png"><a href="emprestimos.html">Empréstimos</a></li>
+
+      <li><img src="../iconsLateral/equipamentosBranco.png"><a href="equipamentos.html">Equipamentos</a></li>
+      
+      
+      <li><img src="../iconsLateral/reservasBranco.png"><a href="reservas.html">Reservas</a></li>
+
+      <li class="ativo"><img src="../iconsLateral/devolucaoBranca.png"><a href="devolucoes.html">Devoluções</a></li>
+      
+      <li><img src="../iconsLateral/configBranca.png"><a href="configuracoes.html">Configurações</a></li>
+    </ul>
+  </div>
+
+
+  <div class="container">
+    <header>
+      <h1>Registrar Devolução</h1>
+    </header>
+
+    <form id="formDevolucao" class="formulario">
+      <div class="campo">
+        <label for="nomePessoa">Nome da Pessoa</label>
+        <input type="text" id="nomePessoa" name="nome_pessoa" readonly />
+      </div>
+
+      <div class="campo">
+        <label for="itemDevolvido">Item Devolvido</label>
+        <input type="text" id="itemDevolvido" name="item_devolvido" required />
+      </div>
+
+      <div class="campo">
+        <label for="codigo">Código do Equipamento</label>
+        <input type="text" id="codigo" name="codigo" required />
+      </div>
+
+      <div class="campo">
+        <label for="dataDevolucao">Data da Devolução</label>
+        <input type="date" id="dataDevolucao" name="data_devolucao" required />
+      </div>
+
+      <div class="campo">
+        <label for="estadoFisico">Estado Físico</label>
+        <select id="estadoFisico" name="estado_fisico" required>
+          <option value="Bom">Bom</option>
+          <option value="Danificado">Danificado</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="funcionalidade">Funcionalidade</label>
+        <select id="funcionalidade" name="funcionalidade" required>
+          <option value="Funciona">Funciona</option>
+          <option value="Não Funciona">Não Funciona</option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="condicoes">Condições</label>
+        <select id="condicoes" name="condicoes" required>
+          <option value="Intacto">Intacto</option>
+          <option value="Riscado">Riscado</option>
+        </select>
+      </div>
+
+      <div class="campo observacoes">
+        <label for="observacoes">Observações</label>
+        <textarea id="observacoes" name="observacoes" rows="4" placeholder="Descreva observações, se houver..."></textarea>
+      </div>
+
+      <div class="botoes">
+        <button type="submit" class="btn confirmar">Confirmar Devolução</button>
+        <button type="button" class="btn voltar" id="voltarBtn">Voltar</button>
+      </div>
+    </form>
+  </div>
+
+  <script src="/js/devolucoes.js"></script>
+  <script src="../js/tema.js"></script>
+</body>
+</html>

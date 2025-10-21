@@ -23,8 +23,14 @@ app.get('/emprestimos', (req, res) => res.sendFile(path.join(__dirname, 'src/htm
 app.get('/equipamentosPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/equipamentos.html')));
 app.get('/adicionarEquipamentoPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/adicionarEquipamento.html')));
 app.get('/editarEquipamentoPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/editarEquipamento.html')));
+app.get('/devolucoes', (req, res) => res.sendFile(path.join(__dirname, 'src/html/devolucoes.html')));
+app.get('/reservas', (req, res) => res.sendFile(path.join(__dirname, 'src/html/reservas.html')));
+app.get('/relatoriosPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/relatorios.html')));
+
 
 // ==================== EQUIPAMENTOS ====================
+
+// Equipamentos disponíveis
 app.get('/equipamentos/disponiveis', async (req, res) => {
   try {
     const equipamentos = await query(`
@@ -35,7 +41,7 @@ app.get('/equipamentos/disponiveis', async (req, res) => {
     res.json(equipamentos);
   } catch (err) {
     console.error('Erro ao listar equipamentos disponíveis:', err);
-    res.status(500).json({ error: 'Erro ao listar equipamentos disponíveis', details: err.message });
+    res.status(500).json({ error: 'Erro ao listar equipamentos disponíveis' });
   }
 });
 
@@ -50,7 +56,7 @@ app.get('/equipamentos', async (req, res) => {
     res.json(equipamentos);
   } catch (err) {
     console.error('Erro ao listar equipamentos:', err);
-    res.status(500).json({ error: 'Erro ao listar equipamentos', details: err.message });
+    res.status(500).json({ error: 'Erro ao listar equipamentos' });
   }
 });
 
@@ -65,13 +71,11 @@ app.get('/equipamentos/:id', async (req, res) => {
        WHERE e.id_equipamento = ?`,
       [id]
     );
-
     if (!equipamento) return res.status(404).json({ error: 'Equipamento não encontrado.' });
-
     res.json(equipamento);
   } catch (err) {
     console.error('Erro ao buscar equipamento:', err);
-    res.status(500).json({ error: 'Erro ao buscar equipamento', details: err.message });
+    res.status(500).json({ error: 'Erro ao buscar equipamento' });
   }
 });
 
@@ -79,7 +83,6 @@ app.get('/equipamentos/:id', async (req, res) => {
 app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
   try {
     const { nome, codigo, valor_agregado, id_categoria } = req.body;
-
     if (!nome || !codigo || !valor_agregado) {
       return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
     }
@@ -100,7 +103,7 @@ app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
     res.json({ message: 'Equipamento adicionado com sucesso!' });
   } catch (err) {
     console.error('Erro ao adicionar equipamento:', err);
-    res.status(500).json({ error: 'Erro ao adicionar equipamento', details: err.message });
+    res.status(500).json({ error: 'Erro ao adicionar equipamento' });
   }
 });
 
@@ -134,9 +137,33 @@ app.put('/equipamentos/:id', upload.single('imagem'), async (req, res) => {
     res.json({ message: 'Equipamento atualizado com sucesso!' });
   } catch (err) {
     console.error('Erro ao atualizar equipamento:', err);
-    res.status(500).json({ error: 'Erro ao atualizar equipamento', details: err.message });
+    res.status(500).json({ error: 'Erro ao atualizar equipamento' });
   }
 });
+
+app.get('/api/relatorios', async (req, res) => {
+  try {
+    const relatorios = await query(`
+      SELECT 
+        d.nome_pessoa,
+        d.item_devolvido AS nome_equipamento,
+        e.data_emprestimo,
+        d.data_devolucao,
+        d.estado_fisico,
+        d.funcionalidade,
+        d.condicoes,
+        d.observacoes
+      FROM devolucoes d
+      LEFT JOIN emprestimos e ON d.nome_pessoa = e.nome_pessoa
+      ORDER BY d.data_devolucao DESC
+    `);
+    res.json(relatorios);
+  } catch (err) {
+    console.error('Erro ao gerar relatório:', err);
+    res.status(500).json({ error: 'Erro ao gerar relatório' });
+  }
+});
+
 
 // Excluir equipamento
 app.delete('/equipamentos/:id', async (req, res) => {
@@ -147,7 +174,7 @@ app.delete('/equipamentos/:id', async (req, res) => {
     res.json({ message: 'Equipamento excluído com sucesso!' });
   } catch (err) {
     console.error('Erro ao excluir equipamento:', err);
-    res.status(500).json({ error: 'Erro ao excluir equipamento', details: err.message });
+    res.status(500).json({ error: 'Erro ao excluir equipamento' });
   }
 });
 
@@ -168,7 +195,6 @@ app.get('/categorias', async (req, res) => {
 app.post('/emprestimos', async (req, res) => {
   try {
     const { nome_pessoa, id_equipamento, data_emprestimo, data_prevista_devolucao } = req.body;
-
     if (!nome_pessoa || !id_equipamento || !data_emprestimo || !data_prevista_devolucao) {
       return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
     }
@@ -189,10 +215,28 @@ app.post('/emprestimos', async (req, res) => {
     res.json({ message: 'Empréstimo adicionado com sucesso!', id: insertResult.insertId });
   } catch (err) {
     console.error('Erro ao adicionar empréstimo:', err);
-    res.status(500).json({ error: 'Erro ao adicionar empréstimo', details: err.message });
+    res.status(500).json({ error: 'Erro ao adicionar empréstimo' });
   }
 });
-
+app.get('/api/reservas', async (req, res) => {
+  try {
+    const reservas = await query(`
+      SELECT 
+        r.id_reserva,
+        r.nome_pessoa,
+        e.nome AS nome_equipamento,
+        DATE_FORMAT(r.data_reserva, '%d/%m/%Y') AS data_reserva,
+        r.status
+      FROM reservas r
+      JOIN equipamentos e ON r.id_equipamento = e.id_equipamento
+      ORDER BY r.data_reserva DESC
+    `);
+    res.json(reservas);
+  } catch (err) {
+    console.error('Erro ao listar reservas:', err);
+    res.status(500).json({ error: 'Erro ao listar reservas' });
+  }
+});
 // Listar todos empréstimos ativos
 app.get('/emprestimos/ativos', async (req, res) => {
   try {
@@ -201,6 +245,7 @@ app.get('/emprestimos/ativos', async (req, res) => {
         id_emprestimo,
         nome_pessoa,
         eq.nome AS nome_equipamento,
+        eq.codigo AS codigo_equipamento,
         DATE_FORMAT(data_emprestimo, '%d/%m/%Y') AS data_emprestimo,
         DATE_FORMAT(data_prevista_devolucao, '%d/%m/%Y') AS data_prevista_devolucao,
         status
@@ -211,7 +256,7 @@ app.get('/emprestimos/ativos', async (req, res) => {
     res.json(emprestimos);
   } catch (err) {
     console.error('Erro ao listar empréstimos ativos:', err);
-    res.status(500).json({ error: 'Erro ao listar empréstimos ativos', details: err.message });
+    res.status(500).json({ error: 'Erro ao listar empréstimos ativos' });
   }
 });
 
@@ -219,7 +264,6 @@ app.get('/emprestimos/ativos', async (req, res) => {
 app.delete('/emprestimos/:id', async (req, res) => {
   const { id } = req.params;
   try {
-    // Primeiro: pegar o equipamento associado para liberar
     const [emprestimo] = await query('SELECT id_equipamento FROM emprestimos WHERE id_emprestimo = ?', [id]);
     if (!emprestimo) return res.status(404).json({ error: 'Empréstimo não encontrado.' });
 
@@ -229,16 +273,75 @@ app.delete('/emprestimos/:id', async (req, res) => {
     res.json({ message: 'Empréstimo excluído com sucesso!' });
   } catch (err) {
     console.error('Erro ao excluir empréstimo:', err);
-    res.status(500).json({ error: 'Erro ao excluir empréstimo', details: err.message });
+    res.status(500).json({ error: 'Erro ao excluir empréstimo' });
   }
 });
 
-// Placeholder: Devolver empréstimo (a implementar)
+// ==================== DEVOLUÇÕES ====================
+
+// Registrar devolução
 app.put('/emprestimos/:id/devolver', async (req, res) => {
-  res.status(200).json({ message: 'Funcionalidade de devolver ainda não implementada.' });
+  const idEmprestimo = req.params.id;
+  const {
+    nome_pessoa,
+    item_devolvido,
+    codigo,
+    data_devolucao,
+    estado_fisico,
+    funcionalidade,
+    condicoes,
+    observacoes
+  } = req.body;
+
+  try {
+    const [emprestimo] = await query('SELECT * FROM emprestimos WHERE id_emprestimo = ?', [idEmprestimo]);
+    if (!emprestimo) {
+      return res.status(404).json({ error: 'Empréstimo não encontrado.' });
+    }
+
+    // Inserir na tabela devolucoes
+    await query(
+      `INSERT INTO devolucoes 
+       (nome_pessoa, item_devolvido, codigo, data_devolucao, estado_fisico, funcionalidade, condicoes, observacoes)
+       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+      [
+        nome_pessoa || emprestimo.nome_pessoa,
+        item_devolvido || '',
+        codigo || '',
+        data_devolucao || new Date().toISOString().slice(0, 10),
+        estado_fisico || 'Bom',
+        funcionalidade || 'Funciona',
+        condicoes || 'Intacto',
+        observacoes || null
+      ]
+    );
+
+    // Atualizar empréstimo
+    await query(
+      `UPDATE emprestimos
+       SET status = 'Devolvido', data_devolucao = ?
+       WHERE id_emprestimo = ?`,
+      [data_devolucao || new Date().toISOString().slice(0, 10), idEmprestimo]
+    );
+
+    // Liberar equipamento
+    if (emprestimo.id_equipamento) {
+      await query(
+        `UPDATE equipamentos
+         SET disponibilidade = 'Disponível'
+         WHERE id_equipamento = ?`,
+        [emprestimo.id_equipamento]
+      );
+    }
+
+    res.json({ message: 'Devolução registrada e equipamento liberado com sucesso!' });
+  } catch (err) {
+    console.error('Erro ao registrar devolução:', err);
+    res.status(500).json({ error: 'Erro ao registrar devolução' });
+  }
 });
 
 // ==================== INICIAR SERVIDOR ====================
 app.listen(8080, () => {
-  console.log('Servidor rodando em: http://localhost:8080');
+  console.log('✅ Servidor rodando em: http://localhost:8080');
 });

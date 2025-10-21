@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Relatórios | Gestão de Materiais</title>
+  <link rel="stylesheet" href="../css/relatorios.css" />
+</head>
+<body>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo">
+      <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI">
+    </div>
+    <ul class="menu">
+      <li><img src="../iconsLateral/menuBranco.png"><a href="dashboard.html">Dashboard</a></li>
+      <li><img src="../iconsLateral/carteiraBranca.png"><a href="emprestimos.html">Empréstimos</a></li>
+      <li><img src="../iconsLateral/equipamentosBranco.png"><a href="equipamentos.html">Equipamentos</a></li>
+      <li class="ativo"><img src="../iconsLateral/relatorioBranco.png"><a href="relatorios.html">Relatórios</a></li>
+      <li><img src="../iconsLateral/reservasBranco.png"><a href="reservas.html">Reservas</a></li>
+      <li><img src="../iconsLateral/devolucaoBranca.png"><a href="devolucoes.html">Devoluções</a></li>
+      <li><img src="../iconsLateral/configBranca.png"><a href="configuracoes.html">Configurações</a></li>
+    </ul>
+  </div>
+
+  <!-- CONTEÚDO PRINCIPAL -->
+  <div class="main">
+    <header>
+      <h1>Relatórios</h1>
+      <button id="btnDownloadCSV">Donwload</button>
+    </header>
+
+    <section class="table-section">
+      <table id="tabelaRelatorios">
+        <thead>
+          <tr>
+            <th>Responsável</th>
+            <th>Equipamento</th>
+            <th>Data Empréstimo</th>
+            <th>Data Devolução</th>
+            <th>Estado Físico</th>
+            <th>Funcionalidade</th>
+            <th>Condições</th>
+            <th>Observações</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td colspan="8">Carregando dados...</td></tr>
+        </tbody>
+      </table>
+    </section>
+  </div>
+
+  <script src="../js/relatorios.js"></script>
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/tema.js"></script>
+</body>
+</html>

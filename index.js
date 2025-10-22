@@ -1,4 +1,4 @@
-// ==================== IMPORTAÇÕES ====================
+// IMPORTAÇÕES 
 const express = require('express');
 const path = require('path');
 const util = require('util');
@@ -18,16 +18,25 @@ app.use(express.static(path.join(__dirname, 'src')));
 
 // ==================== ROTAS HTML ====================
 app.get('/', (req, res) => res.sendFile(path.join(__dirname, 'src/html/index.html')));
+
 app.get('/dashboard', (req, res) => res.sendFile(path.join(__dirname, 'src/html/dashboard.html')));
+
 app.get('/emprestimos', (req, res) => res.sendFile(path.join(__dirname, 'src/html/emprestimos.html')));
+
 app.get('/equipamentosPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/equipamentos.html')));
+
 app.get('/adicionarEquipamentoPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/adicionarEquipamento.html')));
+
 app.get('/editarEquipamentoPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/editarEquipamento.html')));
+
 app.get('/devolucoes', (req, res) => res.sendFile(path.join(__dirname, 'src/html/devolucoes.html')));
+
 app.get('/reservas', (req, res) => res.sendFile(path.join(__dirname, 'src/html/reservas.html')));
+
 app.get('/relatoriosPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/relatorios.html')));
 
-// ==================== RESUMO DASHBOARD ====================
+
+//RESUMO DASHBOARD
 app.get('/dashboard/resumo', async (req, res) => {
   try {
     const [equipamentos] = await query(`SELECT COUNT(*) AS total FROM equipamentos`);
@@ -59,7 +68,7 @@ app.get('/dashboard/resumo', async (req, res) => {
 });
 
 
-// ==================== EQUIPAMENTOS ====================
+// EQUIPAMENTOS 
 
 // Equipamentos disponíveis
 app.get('/equipamentos/disponiveis', async (req, res) => {
@@ -209,7 +218,7 @@ app.delete('/equipamentos/:id', async (req, res) => {
   }
 });
 
-// ==================== CATEGORIAS ====================
+//  CATEGORIAS 
 app.get('/categorias', async (req, res) => {
   try {
     const categorias = await query('SELECT * FROM categorias');
@@ -220,7 +229,7 @@ app.get('/categorias', async (req, res) => {
   }
 });
 
-// ==================== EMPRÉSTIMOS ====================
+// EMPRÉSTIMOS 
 
 // Adicionar empréstimo
 app.post('/emprestimos', async (req, res) => {
@@ -308,7 +317,7 @@ app.delete('/emprestimos/:id', async (req, res) => {
   }
 });
 
-// ==================== DEVOLUÇÕES ====================
+// DEVOLUÇÕES 
 
 // Registrar devolução
 app.put('/emprestimos/:id/devolver', async (req, res) => {
@@ -372,7 +381,7 @@ app.put('/emprestimos/:id/devolver', async (req, res) => {
   }
 });
 
-// ==================== INICIAR SERVIDOR ====================
+
 app.listen(8080, () => {
-  console.log('✅ Servidor rodando em: http://localhost:8080');
+  console.log(' Servidor rodando em: http://localhost:8080');
 });

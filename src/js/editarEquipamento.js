@@ -18,7 +18,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return;
   }
 
-  // Carrega categorias no select
+  // ==================== Carregar Categorias ====================
   async function carregarCategorias() {
     try {
       const res = await fetch("/categorias");
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Carrega dados do equipamento
+  // ==================== Carregar Dados do Equipamento ====================
   async function carregarEquipamento() {
     try {
       const res = await fetch(`/equipamentos/${equipamentoId}`);
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       document.getElementById("nome").value = equipamento.nome;
       document.getElementById("codigo").value = equipamento.codigo;
       document.getElementById("valor_agregado").value = equipamento.valor_agregado;
-      categoriaSelect.value = equipamento.id_categoria;
+      categoriaSelect.value = String(equipamento.id_categoria);
 
       // Exibir imagem, se existir
       if (equipamento.dados && equipamento.tipo_mime) {
@@ -64,7 +64,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 
-  // Converter buffer em Base64
+  // ==================== Converter buffer em Base64 ====================
   function arrayBufferToBase64(buffer) {
     let binary = "";
     const bytes = new Uint8Array(buffer);
@@ -75,7 +75,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     return window.btoa(binary);
   }
 
-  // Atualizar equipamento
+  // ==================== Atualizar Equipamento ====================
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const formData = new FormData(form);
@@ -96,10 +96,11 @@ document.addEventListener("DOMContentLoaded", async () => {
       }
     } catch (err) {
       console.error("Erro ao enviar atualização:", err);
+      alert("Erro ao conectar com o servidor.");
     }
   });
 
-  // Carregar tudo
+  // ==================== Inicialização ====================
   await carregarCategorias();
   await carregarEquipamento();
 });

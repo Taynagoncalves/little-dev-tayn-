@@ -27,6 +27,37 @@ app.get('/devolucoes', (req, res) => res.sendFile(path.join(__dirname, 'src/html
 app.get('/reservas', (req, res) => res.sendFile(path.join(__dirname, 'src/html/reservas.html')));
 app.get('/relatoriosPage', (req, res) => res.sendFile(path.join(__dirname, 'src/html/relatorios.html')));
 
+// ==================== RESUMO DASHBOARD ====================
+app.get('/dashboard/resumo', async (req, res) => {
+  try {
+    const [equipamentos] = await query(`SELECT COUNT(*) AS total FROM equipamentos`);
+
+    // Conta empréstimos ativos: status NULL ou diferente de "Devolvido"
+    const [emprestimos] = await query(`
+      SELECT COUNT(*) AS total 
+      FROM emprestimos
+      WHERE status IS NULL OR status NOT IN ('Devolvido', 'Concluído', 'Finalizado')
+    `);
+
+    // Conta atrasos: previsão anterior à data atual e ainda não devolvido
+    const [atrasos] = await query(`
+      SELECT COUNT(*) AS total
+      FROM emprestimos
+      WHERE (status IS NULL OR status != 'Devolvido')
+      AND data_prevista_devolucao < CURDATE()
+    `);
+
+    res.json({
+      equipamentos: equipamentos.total || 0,
+      emprestimos: emprestimos.total || 0,
+      atrasos: atrasos.total || 0
+    });
+  } catch (err) {
+    console.error('Erro ao gerar resumo do dashboard:', err);
+    res.status(500).json({ error: 'Erro ao gerar resumo do dashboard.' });
+  }
+});
+
 
 // ==================== EQUIPAMENTOS ====================
 

@@ -23,7 +23,7 @@ body {
 }
 
 .sidebar .logo img {
-  width: 140px;
+  width: 200px;
   margin-bottom: 25px;
 }
 
@@ -221,21 +221,21 @@ hr.separator {
 }
 
 .btn-edit {
-  background-color: #1976D2;
+  background-color: #02428F;
   color: white;
 }
 
 .btn-edit:hover {
-  background-color: #1565C0;
+  background-color: #02428F;
 }
 
 .btn-delete {
-  background-color: #E53935;
+  background-color: #E25A14;
   color: white;
 }
 
 .btn-delete:hover {
-  background-color: #C62828;
+  background-color: #E25A14;
 }
 
 @media (max-width: 768px) {

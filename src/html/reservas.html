@@ -4,6 +4,8 @@
   <meta charset="UTF-8">
   <title>Reservas</title>
   <link rel="stylesheet" href="../css/reservas.css">
+    <link rel="stylesheet" href="../css/dashboard.css">
+
   
 </head>
 <body>
@@ -43,29 +45,57 @@
     </ul>
   </div>
 
+ 
   <div class="container">
     <h1 class="titulo">Reservas</h1>
 
-    <div class="tabela-container">
-      <table class="tabela">
-        <thead>
-          <tr>
-            <th>Nome da Pessoa</th>
-            <th>Equipamento</th>
-            <th>Data da Reserva</th>
-            <th>Status</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-        <tbody id="listaReservas"></tbody>
-      </table>
+    <div class="reservas-content">
+      <div class="calendario-container">
+        <h2>Outubro 2025</h2>
+        <div id="calendario"></div>
+      </div>
+
+      <div class="form-container">
+        <form id="formReserva">
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" placeholder="Digite seu nome" required />
+
+          <label for="equipamento">Item a reservar:</label>
+          <select id="equipamento" required>
+            <option value="">Selecione um Equipamento</option>
+          </select>
+
+          <label for="dataReserva">Data da Reserva:</label>
+          <div class="input-data">
+            <input type="date" id="dataReserva" required />
+            <span class="icon">📅</span>
+          </div>
+
+          <button type="submit" class="btn-enviar">Enviar Reserva</button>
+        </form>
+      </div>
     </div>
 
-    <h2 class="subtitulo">Calendário de Disponibilidade</h2>
-    <div id="calendario"></div>
+    <h2 class="subtitulo">Reservas Futuras</h2>
+    <input type="text" id="buscarReserva" placeholder="Pesquisar por nome..." />
+    <table class="tabela">
+      <thead>
+        <tr>
+          <th>Nome</th>
+          <th>Equipamento</th>
+          <th>Data</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody id="listaReservas">
+        <tr><td colspan="5">Carregando...</td></tr>
+      </tbody>
+    </table>
   </div>
+
+  <script src="../js/reservas.js"></script>
+  <script src="../js/dashboard.js"
+  <script src="../js/tema.js"
 </body>
- <script src="../js/reservas.js"></script>
- <script src="../js/dashboard.js"></script>
-  <script src="../js/tema.js"></script>
 </html>

@@ -277,6 +277,17 @@ app.get('/api/reservas', async (req, res) => {
     res.status(500).json({ error: 'Erro ao listar reservas' });
   }
 });
+
+app.get('/api/reservas/datas', async (req, res) => {
+  try {
+    const datas = await query(`SELECT data_reserva FROM reservas`);
+    res.json(datas);
+  } catch (err) {
+    console.error('Erro ao buscar datas de reservas:', err);
+    res.status(500).json({ error: 'Erro ao buscar datas.' });
+  }
+});
+
 // Listar todos empréstimos ativos
 app.get('/emprestimos/ativos', async (req, res) => {
   try {

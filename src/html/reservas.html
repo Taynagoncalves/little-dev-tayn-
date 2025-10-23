@@ -4,7 +4,8 @@
   <meta charset="UTF-8">
   <title>Reservas</title>
   <link rel="stylesheet" href="../css/reservas.css">
-    <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/dashboard.css">
+  <link rel="stylesheet" href="../css/tema.css">
 
   
 </head>
@@ -52,6 +53,11 @@
     <div class="reservas-content">
       <div class="calendario-container">
         <h2>Outubro 2025</h2>
+        <div id="diasSemana">
+          <span>Dom</span><span>Seg</span><span>Ter</span><span>Qua</span><span>Qui</span><span>Sex</span><span>Sáb</span>
+        </div>
+        <div id="calendario"></div>
+        
         <div id="calendario"></div>
       </div>
 
@@ -68,7 +74,7 @@
           <label for="dataReserva">Data da Reserva:</label>
           <div class="input-data">
             <input type="date" id="dataReserva" required />
-            <span class="icon">📅</span>
+            <span class="icon"></span>
           </div>
 
           <button type="submit" class="btn-enviar">Enviar Reserva</button>
@@ -94,8 +100,10 @@
     </table>
   </div>
 
+
   <script src="../js/reservas.js"></script>
-  <script src="../js/dashboard.js"
-  <script src="../js/tema.js"
+  <script src="../js/dashboard.js"></script>
+  <script src="../js/tema.js"></script>
+  
 </body>
 </html>

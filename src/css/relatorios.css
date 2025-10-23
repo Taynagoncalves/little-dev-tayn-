@@ -1,5 +1,5 @@
 body {
-  margin: 0;
+  margin: fixed;
   font-family: "Poppins", sans-serif;
   display: flex;
   background-color: #f4f4f4;
@@ -88,7 +88,9 @@ header h1 {
 }
 
 #btnDownloadCSV {
-  background-color: #111D4A;
+  background-color: #02428F;
+  height: 40px;
+  width: 15%;
   color: white;
   border: none;
   padding: 10px 20px;
@@ -96,6 +98,7 @@ header h1 {
   font-weight: 500;
   cursor: pointer;
   transition: 0.3s;
+
 }
 
 #btnDownloadCSV:hover {

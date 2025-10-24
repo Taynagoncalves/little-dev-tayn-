@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - Plataforma SENAI</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
   <link rel="stylesheet" href="../css/dashboard.css">
   <link rel="stylesheet" href="../css/tema.css">
 </head>
@@ -13,36 +14,37 @@
       <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI">
     </div>
     <ul class="menu">
-      <li class="ativo">
+      <li class="ativo" onclick="window.location.href='../html/dashboard.html'">
         <img src="../iconsLateral/menuBranco.png" alt="Dashboard">
-        <a href="../html/dashboard.html">Dashboard</a>
+        <span>Dashboard</span>
       </li>
-      <li>
+      <li onclick="window.location.href='../html/emprestimos.html'">
         <img src="../iconsLateral/carteiraBranca.png" alt="Empréstimos">
-        <a href="../html/emprestimos.html">Empréstimos</a>
+        <span>Empréstimos</span>
       </li>
-      <li>
+      <li onclick="window.location.href='../html/equipamentos.html'">
         <img src="../iconsLateral/equipamentosBranco.png" alt="Equipamentos">
-        <a href="../html/equipamentos.html">Equipamentos</a>
+        <span>Equipamentos</span>
       </li>
-      <li>
+      <li onclick="window.location.href='relatorios.html'">
         <img src="../iconsLateral/relatorioBranco.png" alt="Relatórios">
-        <a href="relatorios.html">Relatórios</a>
+        <span>Relatórios</span>
       </li>
-      <li>
+      <li onclick="window.location.href='reservas.html'">
         <img src="../iconsLateral/reservasBranco.png" alt="Reservas">
-        <a href="reservas.html">Reservas</a>
+        <span>Reservas</span>
       </li>
-      <li>
+      <li onclick="window.location.href='devolucoes.html'">
         <img src="../iconsLateral/devolucaoBranca.png" alt="Devoluções">
-        <a href="devolucoes.html">Devoluções</a>
+        <span>Devoluções</span>
       </li>
-      <li>
+      <li onclick="window.location.href='configuracoes.html'">
         <img src="../iconsLateral/configBranca.png" alt="Configurações">
-        <a href="configuracoes.html">Configurações</a>
+        <span>Configurações</span>
       </li>
     </ul>
   </div>
+  
 
   <div class="main-content">
     <h1>Plataforma de Gestão de Materiais Didáticos</h1>
@@ -99,5 +101,8 @@
   
   <script src="../js/dashboard.js"></script> 
   <script src="../js/tema.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 </body>
 </html>

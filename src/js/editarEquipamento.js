@@ -89,10 +89,23 @@ document.addEventListener("DOMContentLoaded", async () => {
       const result = await res.json();
 
       if (res.ok) {
-        alert("Equipamento atualizado com sucesso!");
-        window.location.href = "equipamentos.html";
+        Swal.fire({
+          title: "Sucesso!",
+          text: "Equipamento atualizado com sucesso!",
+          icon: "success",
+          confirmButtonColor: "#111D4A",
+          confirmButtonText: "OK",
+        }).then(() => {
+          window.location.href = "equipamentos.html";
+        });
       } else {
-        alert(result.error || "Erro ao atualizar equipamento.");
+        Swal.fire({
+          title: "Erro!",
+          text: "Erro ao atualizar equipamento: " + (result.error || "Erro desconhecido"),
+          icon: "error",
+          confirmButtonColor: "#111D4A",
+          confirmButtonText: "Tentar novamente",
+        });
       }
     } catch (err) {
       console.error("Erro ao enviar atualização:", err);

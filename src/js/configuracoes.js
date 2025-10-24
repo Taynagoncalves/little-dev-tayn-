@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const tamanhoFonte = document.getElementById("tamanhoFonte");
   const ativarAlertas = document.getElementById("ativarAlertas");
 
-  // 🔁 Carregar configurações
+  //Carregar configurações
   const dark = localStorage.getItem("modoEscuro") === "true";
   const daltonico = localStorage.getItem("modoDaltonico") === "true";
   const fonte = parseFloat(localStorage.getItem("tamanhoFonte")) || 1;
@@ -19,25 +19,25 @@ document.addEventListener("DOMContentLoaded", () => {
   document.body.classList.toggle("daltonico", daltonico);
   document.body.style.fontSize = `${fonte}em`;
 
- // 🌙 Alternar modo escuro global
+ //modo escuro
 modoEscuro.addEventListener("change", () => {
   localStorage.setItem("modoEscuro", modoEscuro.checked);
   document.body.classList.toggle("dark", modoEscuro.checked);
 });
 
-// 🎨 Alternar modo daltônico global
+// modo daltônico 
 modoDaltonico.addEventListener("change", () => {
   localStorage.setItem("modoDaltonico", modoDaltonico.checked);
   document.body.classList.toggle("daltonico", modoDaltonico.checked);
 });
 
-  // 🔠 Fonte
+  // Fonte
   tamanhoFonte.addEventListener("input", () => {
     document.body.style.fontSize = `${tamanhoFonte.value}em`;
     localStorage.setItem("tamanhoFonte", tamanhoFonte.value);
   });
 
-  // 🔔 Alertas
+  //Alertas
   ativarAlertas.addEventListener("change", () => {
     localStorage.setItem("ativarAlertas", ativarAlertas.checked);
     if (ativarAlertas.checked) alert("Alertas ativados!");

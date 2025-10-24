@@ -9,7 +9,6 @@ async function carregarCategorias() {
     select.appendChild(option);
   });
 }
-
 carregarCategorias();
 
 document.getElementById('formEquipamento').addEventListener('submit', async (e) => {
@@ -19,9 +18,22 @@ document.getElementById('formEquipamento').addEventListener('submit', async (e) 
   const res = await fetch('/equipamentos', { method: 'POST', body: formData });
 
   if (res.ok) {
-    alert('Equipamento adicionado com sucesso!');
-    window.location.href = '/equipamentosPage';
+    Swal.fire({
+      title: 'Sucesso!',
+      text: 'Equipamento adicionado com sucesso!',
+      icon: 'success',
+      confirmButtonColor: '#111D4A',
+      confirmButtonText: 'OK'
+    }).then(() => {
+      window.location.href = '/equipamentosPage';
+    });
   } else {
-    alert('Erro ao adicionar equipamento.');
+    Swal.fire({
+      title: 'Erro!',
+      text: 'Erro ao adicionar equipamento.',
+      icon: 'error',
+      confirmButtonColor: '#111D4A',
+      confirmButtonText: 'Tentar novamente'
+    });
   }
 });

@@ -4,44 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Empréstimos</title> 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
 <link rel="stylesheet" href="../css/dashboard.css">
   <link rel="stylesheet" href="../css/tema.css">
 <link rel="stylesheet" href="../css/emprestimos.css">
 </head>
 <body>
 
+
   <div class="sidebar">
     <div class="logo">
       <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI">
     </div>
     <ul class="menu">
-      <li>
+      <li  onclick="window.location.href='../html/dashboard.html'">
         <img src="../iconsLateral/menuBranco.png" alt="Dashboard">
-        <a href="dashboard.html">Dashboard</a>
+        <span>Dashboard</span>
       </li>
-      <li class="ativo">
+      <li class="ativo" onclick="window.location.href='../html/emprestimos.html'">
         <img src="../iconsLateral/carteiraBranca.png" alt="Empréstimos">
-        <a href="emprestimos.html">Empréstimos</a>
+        <span>Empréstimos</span>
       </li>
-      <li class="#">
+      <li onclick="window.location.href='../html/equipamentos.html'">
         <img src="../iconsLateral/equipamentosBranco.png" alt="Equipamentos">
-        <a href="equipamentos.html">Equipamentos</a>
+        <span>Equipamentos</span>
       </li>
-      <li>
+      <li onclick="window.location.href='/html/relatorios.html'">
         <img src="../iconsLateral/relatorioBranco.png" alt="Relatórios">
-        <a href="relatorios.html">Relatórios</a>
+        <span>Relatórios</span>
       </li>
-      <li>
+      <li onclick="window.location.href='/html/reservas.html'">
         <img src="../iconsLateral/reservasBranco.png" alt="Reservas">
-        <a href="reservas.html">Reservas</a>
+        <span>Reservas</span>
       </li>
-      <li>
+      <li onclick="window.location.href='/html/devolucoes.html'">
         <img src="../iconsLateral/devolucaoBranca.png" alt="Devoluções">
-        <a href="devolucoes.html">Devoluções</a>
+        <span>Devoluções</span>
       </li>
-      <li>
+      <li onclick="window.location.href='/html/configuracoes.html'">
         <img src="../iconsLateral/configBranca.png" alt="Configurações">
-        <a href="configuracoes.html">Configurações</a>
+        <span>Configurações</span>
       </li>
     </ul>
   </div>
@@ -99,6 +101,9 @@
 <script src="../js/emprestimos.js"></script>
 <script src="../js/dashboard.js"></script>
 <script src="../js/tema.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+
 
 </body>
 </html>

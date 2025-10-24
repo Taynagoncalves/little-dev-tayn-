@@ -13,41 +13,41 @@ body.dark h3,
 body.dark h4,
 body.dark h5,
 body.dark h6 {
-  color: #ffffff; /* branco para títulos */
+  color: #ffffff;
 }
 
 /* Links */
 body.dark a {
-  color: #87cefa; /* azul claro */
+  color: #87cefa; 
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 body.dark a:hover {
-  color: #cce6ff; /* destaque ao passar o mouse */
+  color: #cce6ff; 
 }
 
 /* Sidebar */
 body.dark .sidebar {
-  background-color: #142850; /* azul escuro */
+  background-color: #142850; 
   color: #f5f7fa;
 }
 
-/* Menu */
+
 body.dark .menu li a {
   color: #f5f7fa;
 }
 
 body.dark .menu li.ativo,
 body.dark .menu li:hover {
-  background-color: #1f4068; /* destaque azul */
+  background-color: #1f4068;
   color: #ffffff;
 }
 
-/* Cards */
+
 body.dark .card-resumo,
 body.dark .card-acao {
-  background-color: #1a2a4a; /* azul mais escuro */
+  background-color: #1a2a4a; 
   color: #e0e0e0;
   box-shadow: 0 2px 6px rgba(0,0,0,0.5);
   transition: all 0.3s ease;

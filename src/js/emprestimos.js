@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const tabelaEmprestimosAtivos = document.getElementById('tabelaEmprestimosAtivos');
   const nomePessoaInput = document.getElementById('nomePessoa'); 
 
-  // ==================== CARREGAR EQUIPAMENTOS DISPONÍVEIS ====================
+  //carregar equipamentos disponíveis
   async function carregarEquipamentos() {
     try {
       const response = await fetch('/equipamentos/disponiveis');
@@ -20,20 +20,36 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     } catch (error) {
       console.error('Erro ao carregar equipamentos:', error);
+      Swal.fire({
+        title: 'Erro!',
+        text: 'Falha ao carregar equipamentos.',
+        icon: 'error',
+        confirmButtonColor: '#111D4A'
+      });
     }
   }
 
-  // ==================== ADICIONAR EMPRÉSTIMO ====================
+  //adicionar empréstimo
   formEmprestimo.addEventListener('submit', async (e) => {
     e.preventDefault();
 
     if (!nomePessoaInput.value.trim()) {
-      alert('Preencha o nome do responsável.');
+      Swal.fire({
+        title: 'Atenção!',
+        text: 'Preencha o nome do responsável.',
+        icon: 'warning',
+        confirmButtonColor: '#111D4A'
+      });
       return;
     }
 
     if (!selectEquipamento.value) {
-      alert('Selecione um equipamento!');
+      Swal.fire({
+        title: 'Atenção!',
+        text: 'Selecione um equipamento!',
+        icon: 'warning',
+        confirmButtonColor: '#111D4A'
+      });
       return;
     }
 
@@ -54,20 +70,35 @@ document.addEventListener('DOMContentLoaded', () => {
       const result = await response.json();
 
       if (response.ok) {
-        alert(result.message);
+        await Swal.fire({
+          title: 'Sucesso!',
+          text: result.message,
+          icon: 'success',
+          confirmButtonColor: '#111D4A'
+        });
         formEmprestimo.reset();
         carregarEquipamentos();
         listarEmprestimosAtivos();
       } else {
-        alert('Erro ao adicionar empréstimo: ' + result.error);
+        Swal.fire({
+          title: 'Erro!',
+          text: 'Erro ao adicionar empréstimo: ' + result.error,
+          icon: 'error',
+          confirmButtonColor: '#111D4A'
+        });
       }
     } catch (error) {
       console.error('Erro de rede ao adicionar empréstimo:', error);
-      alert('Erro de rede. Verifique a conexão com o servidor.');
+      Swal.fire({
+        title: 'Erro!',
+        text: 'Erro de rede. Verifique a conexão com o servidor.',
+        icon: 'error',
+        confirmButtonColor: '#111D4A'
+      });
     }
   });
 
-  // ==================== LISTAR EMPRÉSTIMOS ATIVOS ====================
+  //listar empréstimos ativos
   async function listarEmprestimosAtivos() {
     try {
       const response = await fetch('/emprestimos/ativos');
@@ -92,10 +123,10 @@ document.addEventListener('DOMContentLoaded', () => {
         row.insertCell().textContent = emp.data_prevista_devolucao;
         row.insertCell().textContent = emp.status;
 
-        // ===== COLUNA DE AÇÕES =====
+        //coluna de ações
         const acoesCell = row.insertCell();
 
-        // BOTÃO DEVOLVER
+        //botao devolver
         const btnDevolver = document.createElement('button');
         btnDevolver.textContent = 'Devolver';
         btnDevolver.classList.add('btn-devolver');
@@ -105,26 +136,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         acoesCell.appendChild(btnDevolver);
 
-        // BOTÃO EXCLUIR
+        //botao excluir
         const btnExcluir = document.createElement('button');
         btnExcluir.textContent = 'Excluir';
         btnExcluir.classList.add('btn-excluir');
         btnExcluir.addEventListener('click', async () => {
-          if (!confirm('Deseja realmente excluir este empréstimo?')) return;
+          const result = await Swal.fire({
+            title: 'Confirmação',
+            text: 'Deseja realmente excluir este empréstimo?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#111D4A',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir',
+            cancelButtonText: 'Cancelar'
+          });
+
+          if (!result.isConfirmed) return;
 
           try {
             const res = await fetch(`/emprestimos/${emp.id_emprestimo}`, { method: 'DELETE' });
-            const result = await res.json();
+            const resultJson = await res.json();
 
             if (res.ok) {
-              alert(result.message);
+              await Swal.fire({
+                title: 'Excluído!',
+                text: resultJson.message,
+                icon: 'success',
+                confirmButtonColor: '#111D4A'
+              });
               listarEmprestimosAtivos();
             } else {
-              alert('Erro ao excluir: ' + result.error);
+              Swal.fire({
+                title: 'Erro!',
+                text: 'Erro ao excluir: ' + resultJson.error,
+                icon: 'error',
+                confirmButtonColor: '#111D4A'
+              });
             }
           } catch (err) {
             console.error('Erro ao excluir empréstimo:', err);
-            alert('Erro ao excluir empréstimo.');
+            Swal.fire({
+              title: 'Erro!',
+              text: 'Erro ao excluir empréstimo.',
+              icon: 'error',
+              confirmButtonColor: '#111D4A'
+            });
           }
         });
         acoesCell.appendChild(btnExcluir);
@@ -135,7 +192,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // ==================== INICIALIZAÇÃO ====================
   carregarEquipamentos();
   listarEmprestimosAtivos();
 });

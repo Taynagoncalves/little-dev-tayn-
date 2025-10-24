@@ -6,8 +6,23 @@ document.addEventListener('DOMContentLoaded', async () => {
   const voltarBtn = document.getElementById('voltarBtn');
 
   if (!idEmprestimo) {
-    alert('ID de empréstimo não informado.');
+    Toastify({
+      text: '⚠️ Nenhum empréstimo selecionado para devolução.',
+      duration: 3000,
+      close: true,
+      gravity: 'top',
+      position: 'right',
+      backgroundColor: '#E25A14',
+      stopOnFocus: true,
+      style: {
+        borderRadius: '8px',
+        fontSize: '14px'
+    }
+  }).showToast();
+    
+  setTimeout(() => {
     window.location.href = '/emprestimos';
+  } , 3000);
     return;
   }
 
@@ -18,8 +33,24 @@ document.addEventListener('DOMContentLoaded', async () => {
     const emprestimo = emprestimos.find(e => e.id_emprestimo == idEmprestimo);
 
     if (!emprestimo) {
-      alert('Empréstimo não encontrado.');
-      window.location.href = '/emprestimos';
+      Toastify({
+        text: '⚠️ Empréstimo não encontrado ou já devolvido.',
+        duration: 3000,
+        close: true,
+        gravity: 'top',
+        position: 'right',
+        backgroundColor: '#E25A14',
+        stopOnFocus: true,
+        style: {
+          borderRadius: '8px',
+          fontSize: '14px'
+      }
+      }).showToast();
+
+      setTimeout(() => {
+        window.location.href = '/emprestimos';
+      } , 3000);
+      
       return;
     }
 
@@ -27,9 +58,25 @@ document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('itemDevolvido').value = emprestimo.nome_equipamento;
     document.getElementById('codigo').value = emprestimo.codigo_equipamento;
     document.getElementById('dataDevolucao').value = new Date().toISOString().split('T')[0];
+
   } catch (err) {
-    console.error('Erro ao carregar dados do empréstimo:', err);
-    alert('Erro ao carregar dados.');
+     Toastify({
+      text: '⚠️ Erro ao carregar dados do empréstimo.',
+      duration: 3000,
+      close: true,
+      gravity: 'top',
+      position: 'right',
+      backgroundColor: '#E25A14',
+      stopOnFocus: true,
+      style: {
+        borderRadius: '8px',
+        fontSize: '14px'
+    }
+    }).showToast();
+      
+    setTimeout(() => {
+      window.location.href = '/emprestimos';
+    });
   }
 
   // Enviar devolução
@@ -57,14 +104,27 @@ document.addEventListener('DOMContentLoaded', async () => {
       const result = await res.json();
 
       if (res.ok) {
-        alert('✅ Devolução registrada com sucesso!');
-        window.location.href = '/emprestimos';
+        Swal.fire({
+          title: 'Sucesso!',
+          text: 'Devolução registrada com sucesso!',
+          icon: 'success',
+          confirmButtonColor: '#111D4A',
+          confirmButtonText: 'OK'
+        }).then(() => {
+          window.location.href = '/emprestimos';
+        });
       } else {
-        alert('Erro: ' + result.error);
+        Swal.fire({
+          title: 'Erro!',
+          text: 'Erro ao registrar devolução: ' + (result.error || 'Erro desconhecido'),
+          icon: 'error',
+          confirmButtonColor: '#111D4A',
+          confirmButtonText: 'Tentar novamente'
+        });
       }
     } catch (err) {
-      console.error('Erro ao registrar devolução:', err);
-      alert('Erro ao enviar devolução.');
+      console.error('Erro ao enviar devolução:', err);
+      alert('Erro ao registrar devolução. Verifique os dados e tente novamente.');
     }
   });
 

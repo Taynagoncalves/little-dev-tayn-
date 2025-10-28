@@ -7,29 +7,27 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   if (!idEmprestimo) {
     Swal.fire({
-      title: 'Erro!',
+      title: 'Atenção!',
       text: 'Você precisa selecionar um empréstimo para devolver.',
       icon: 'warning',
       showCancelButton: true,
-      confirmButtonText: 'Ir para Empréstimos', // botão principal
-      cancelButtonText: 'Sair',                 // botão secundário
+      confirmButtonText: 'Ir para Empréstimos', 
+      cancelButtonText: 'Sair',                 
       confirmButtonColor: '#111D4A',
       cancelButtonColor: '#888',
-      allowOutsideClick: false                 // impede fechar clicando fora
+      allowOutsideClick: false                 
     }).then((result) => {
       if (result.isConfirmed) {
-        // Usuário clicou em "Ir para Empréstimos"
+       
         window.location.href = '/emprestimos';
       } else if (result.dismiss === Swal.DismissReason.cancel) {
-        // Usuário clicou em "Sair"
+        
         window.location.href = '/dashboard';
       }
     });
   
     return;
   }
-  
-  
   
 
   try {

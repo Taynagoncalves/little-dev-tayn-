@@ -6,25 +6,31 @@ document.addEventListener('DOMContentLoaded', async () => {
   const voltarBtn = document.getElementById('voltarBtn');
 
   if (!idEmprestimo) {
-    Toastify({
-      text: '⚠️ Nenhum empréstimo selecionado para devolução.',
-      duration: 3000,
-      close: true,
-      gravity: 'top',
-      position: 'right',
-      backgroundColor: '#E25A14',
-      stopOnFocus: true,
-      style: {
-        borderRadius: '8px',
-        fontSize: '14px'
-    }
-  }).showToast();
-    
-  setTimeout(() => {
-    window.location.href = '/emprestimos';
-  } , 3000);
+    Swal.fire({
+      title: 'Erro!',
+      text: 'Você precisa selecionar um empréstimo para devolver.',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Ir para Empréstimos', // botão principal
+      cancelButtonText: 'Sair',                 // botão secundário
+      confirmButtonColor: '#111D4A',
+      cancelButtonColor: '#888',
+      allowOutsideClick: false                 // impede fechar clicando fora
+    }).then((result) => {
+      if (result.isConfirmed) {
+        // Usuário clicou em "Ir para Empréstimos"
+        window.location.href = '/emprestimos';
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        // Usuário clicou em "Sair"
+        window.location.href = '/dashboard';
+      }
+    });
+  
     return;
   }
+  
+  
+  
 
   try {
     // Buscar dados do empréstimo
@@ -34,7 +40,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     if (!emprestimo) {
       Toastify({
-        text: '⚠️ Empréstimo não encontrado ou já devolvido.',
+        text: 'Empréstimo não encontrado ou já devolvido.',
         duration: 3000,
         close: true,
         gravity: 'top',
@@ -61,7 +67,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   } catch (err) {
      Toastify({
-      text: '⚠️ Erro ao carregar dados do empréstimo.',
+      text: ' Erro ao carregar dados do empréstimo.',
       duration: 3000,
       close: true,
       gravity: 'top',

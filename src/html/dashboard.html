@@ -10,9 +10,12 @@
 </head>
 <body>
   <div class="sidebar">
-    <div class="logo">
-      <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI">
-    </div>
+      <div class="logo">
+        <a href="../html/dashboard.html">
+          <img src="../imagens/logoSenaiRGB.png" alt="Logo SENAI" style="cursor: pointer;">
+        </a>
+      </div>
+      
     <ul class="menu">
       <li class="ativo" onclick="window.location.href='../html/dashboard.html'">
         <img src="../iconsLateral/menuBranco.png" alt="Dashboard">
@@ -65,40 +68,38 @@
         <p>Atrasos</p>
       </div>
     </div>
-
     <div class="acoes">
-      <div class="card-acao">
-        <img src="../iconsDashbord/cateiraAzul.png" alt="Icone Novo Empréstimo">
-        <div class="card-acao-texto" onclick="window.location.href='/html/emprestimos.html'">Novo Empréstimo</div>
+      <div class="card-acao" onclick="window.location.href='/html/emprestimos.html'">
+        <img src="../iconsDashbord/cateiraAzul.png" alt="Ícone Novo Empréstimo">
+        <div class="card-acao-texto">Novo Empréstimo</div>
       </div>
-
-      <div class="card-acao">
-        <img src="../iconsDashbord/cadastroAzul.png" alt="Icone Cadastrar Equipamentos">
-        <div class="card-acao-texto" onclick="window.location.href='/html/adicionarEquipamento.html'">Cadastrar Equipamento</div>
+    
+      <div class="card-acao" onclick="window.location.href='/html/adicionarEquipamento.html'">
+        <img src="../iconsDashbord/cadastroAzul.png" alt="Ícone Cadastrar Equipamentos">
+        <div class="card-acao-texto">Cadastrar Equipamento</div>
       </div>
-
-      <div class="card-acao">
-        <img src="../iconsDashbord/relatorioAzul.png" alt="Icone Relatórios">
-        <div class="card-acao-texto" onclick="window.location.href='/html/relatorios.html'">Relatórios</div>
+    
+      <div class="card-acao" onclick="window.location.href='/html/relatorios.html'">
+        <img src="../iconsDashbord/relatorioAzul.png" alt="Ícone Relatórios">
+        <div class="card-acao-texto">Relatórios</div>
       </div>
-
-      <div class="card-acao">
-        <img src="../iconsDashbord/CalendarioAzul.png" alt="Icone Reservas">
-        <div class="card-acao-texto" onclick="window.location.href='/html/reservas.html'">Reservas</div>
+    
+      <div class="card-acao" onclick="window.location.href='/html/reservas.html'">
+        <img src="../iconsDashbord/CalendarioAzul.png" alt="Ícone Reservas">
+        <div class="card-acao-texto">Reservas</div>
       </div>
-
-      <div class="card-acao">
-        <img src="../iconsDashbord/devolucaoAzul.png" alt="Icone Devoluções">
-       <div class="card-acao-botao" onclick="window.location.href='/html/devolucoes.html'">Devoluções</div>
+    
+      <div class="card-acao" onclick="window.location.href='/html/devolucoes.html'">
+        <img src="../iconsDashbord/devolucaoAzul.png" alt="Ícone Devoluções">
+        <div class="card-acao-botao">Devoluções</div>
       </div>
-
-      <div class="card-acao">
-        <img src="../iconsDashbord/configAzul.png" alt="Icone Configurações">
-        <div class="card-acao-botao" onclick="window.location.href='/html/configuracoes.html'">Configurações</div>
+    
+      <div class="card-acao" onclick="window.location.href='/html/configuracoes.html'">
+        <img src="../iconsDashbord/configAzul.png" alt="Ícone Configurações">
+        <div class="card-acao-botao">Configurações</div>
       </div>
     </div>
-  </div>
-  
+    
   <script src="../js/dashboard.js"></script> 
   <script src="../js/tema.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

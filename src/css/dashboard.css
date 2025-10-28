@@ -142,3 +142,14 @@
     font-weight: 600;
     cursor: pointer;
   }
+
+  .card-acao {
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  
+  .card-acao:hover {
+    transform: scale(1.03);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  }
+  

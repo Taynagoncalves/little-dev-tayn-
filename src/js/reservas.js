@@ -183,7 +183,7 @@ async function devolverReserva(idReserva) {
   }
 }
 
-
+//calendario
 //função para analisar datas em múltiplos formatos
 function parseDateFlexible(dateStr) {
   if (!dateStr) return null;

@@ -60,7 +60,7 @@ input:checked + .slider:before {
 
 /* Tema escuro */
 body.dark {
-  background-color: #0a1733;
+  background-color: #111D4A;
   color: #fff;
 }
 

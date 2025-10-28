@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   const tabelaBody = document.querySelector('#tabelaRelatorios tbody');
   const btnDownloadCSV = document.getElementById('btnDownloadCSV');
 
-  // ✅ Função para formatar data em dd/mm/yyyy
+  // Função para formatar data em dd/mm/yyyy
   function formatarData(data) {
     if (!data) return '-';
     const d = new Date(data);
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     return `${dia}/${mes}/${ano}`;
   }
 
-  // ✅ Função para carregar relatórios
+  // Função para carregar relatórios
   async function carregarRelatorios() {
     try {
       const response = await fetch('/api/relatorios');
@@ -44,7 +44,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   }
 
-  // ✅ Função para exportar para CSV
+  //Função para exportar para CSV
   function exportarCSV() {
     const linhas = [];
     const cabecalho = [
@@ -78,6 +78,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   btnDownloadCSV.addEventListener('click', exportarCSV);
 
-  // ✅ Carregar relatórios ao abrir a página
+
   carregarRelatorios();
 });

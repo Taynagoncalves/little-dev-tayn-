@@ -158,7 +158,7 @@ body {
 
 /* Dias reservados (indisponíveis) */
 .dia.indisponivel {
-  background-color: #e74c3c;
+  background-color: #D4421E;
   color: white;
   cursor: not-allowed;
 }
@@ -286,3 +286,5 @@ form select:focus {
 .btn-primario:hover {
   background: var(--azul-escuro);
 }
+
+

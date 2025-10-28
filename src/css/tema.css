@@ -1,7 +1,7 @@
-/* 🌙 Tema escuro global */
+/* 🌙 Tema escuro global (tons de azul escuro, sem branco) */
 body.dark {
-  background-color: #0a1733; /* fundo principal escuro */
-  color: #e0e0e0; /* texto padrão claro */
+  background-color: #111D4A; /* fundo azul escuro */
+  color: #ffffff; /* texto branco */
   transition: all 0.3s ease;
   font-family: Arial, sans-serif;
 }
@@ -18,74 +18,80 @@ body.dark h6 {
 
 /* Links */
 body.dark a {
-  color: #87cefa; 
+  color: #cfd9ff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 body.dark a:hover {
-  color: #cce6ff; 
+  color: #ffffff;
 }
 
 /* Sidebar */
 body.dark .sidebar {
-  background-color: #142850; 
-  color: #f5f7fa;
+  background-color: #14225c; /* azul mais escuro */
+  color: #ffffff;
 }
 
-
 body.dark .menu li a {
-  color: #f5f7fa;
+  color: #ffffff;
 }
 
 body.dark .menu li.ativo,
 body.dark .menu li:hover {
-  background-color: #1f4068;
+  background-color: #24347a;
   color: #ffffff;
 }
 
-
+/* Cards e Containers */
+body.dark .card,
 body.dark .card-resumo,
-body.dark .card-acao {
-  background-color: #1a2a4a; 
-  color: #e0e0e0;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.5);
+body.dark .card-acao,
+body.dark .container,
+body.dark .config-card,
+body.dark .box {
+  background-color: #192A6B; /* azul médio */
+  color: #ffffff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(17, 29, 74, 0.5);
+  padding: 20px;
   transition: all 0.3s ease;
 }
 
+body.dark .card:hover,
 body.dark .card-resumo:hover,
 body.dark .card-acao:hover {
-  background-color: #1f4068;
+  background-color: #20378c;
 }
 
 /* Tabelas */
 body.dark table {
-  background-color: #192841; /* fundo da tabela */
-  color: #cfd8dc; /* texto da tabela */
+  background-color: #16256a;
+  color: #ffffff;
   border-collapse: collapse;
   width: 100%;
 }
 
 body.dark .tabela th {
-  background-color: #1f4068; /* cabeçalho azul */
-  color: #ffffff; /* texto do cabeçalho */
+  background-color: #20378c;
+  color: #ffffff;
   padding: 10px;
-  border: 1px solid #2a4f73;
+  border: 1px solid #31459b;
 }
 
 body.dark .tabela td {
-  background-color: #142850; /* fundo das células */
-  color: #e0e0e0;
+  background-color: #192A6B;
+  color: #ffffff;
   padding: 10px;
-  border: 1px solid #2a4f73;
+  border: 1px solid #31459b;
 }
 
 /* Botões */
 body.dark button,
 body.dark .btn {
-  background-color: #1f4068;
+  background-color: #20378c;
   color: #ffffff;
-  border: none;
+  border: 1px solid #31459b;
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
@@ -94,16 +100,16 @@ body.dark .btn {
 
 body.dark button:hover,
 body.dark .btn:hover {
-  background-color: #3a6186;
+  background-color: #31459b;
 }
 
 /* Inputs e selects */
 body.dark input,
 body.dark select,
 body.dark textarea {
-  background-color: #142850;
-  color: #e0e0e0;
-  border: 1px solid #2a4f73;
+  background-color: #16256a; /* fundo azul escuro */
+  color: #ffffff;
+  border: 1px solid #31459b;
   padding: 6px 10px;
   border-radius: 4px;
   transition: all 0.3s ease;
@@ -113,18 +119,29 @@ body.dark input:focus,
 body.dark select:focus,
 body.dark textarea:focus {
   outline: none;
-  border-color: #87cefa;
+  border-color: #7f9cff;
+}
+
+/* Switches e Sliders */
+body.dark input[type="checkbox"],
+body.dark .switch {
+  accent-color: #7f9cff;
+  cursor: pointer;
+}
+
+body.dark input[type="range"] {
+  accent-color: #7f9cff;
 }
 
 /* Modais */
 body.dark .modal {
-  background-color: #142850;
-  color: #e0e0e0;
+  background-color: #192A6B;
+  color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.7);
+  box-shadow: 0 4px 12px rgba(17, 29, 74, 0.7);
 }
 
 /* 🎨 Modo daltônico global */
 body.daltonico {
-  filter: hue-rotate(90deg); /* mantém contraste, muda matiz */
+  filter: hue-rotate(90deg);
 }

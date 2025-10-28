@@ -290,12 +290,12 @@ app.post('/api/reservas', async (req, res) => {
         WHERE id_equipamento = ?
       `, [id_equipamento]);
     } catch (erroUpdate) {
-      console.warn('⚠️ Campo "disponibilidade" não existe na tabela equipamentos, ignorando atualização.');
+      console.warn(' Campo "disponibilidade" não existe na tabela equipamentos, ignorando atualização.');
     }
 
-    res.json({ message: '✅ Reserva cadastrada com sucesso!' });
+    res.json({ message: 'Reserva cadastrada com sucesso!' });
   } catch (err) {
-    console.error('❌ Erro ao cadastrar reserva:', err.sqlMessage || err);
+    console.error('Erro ao cadastrar reserva:', err.sqlMessage || err);
     res.status(500).json({ error: 'Erro ao cadastrar reserva. Verifique os dados.' });
   }
 });
@@ -322,7 +322,7 @@ app.put('/reservas/:id/devolver', async (req, res) => {
   }
 });
 
-// DEVOLUÇÕES
+//devoluções
 app.put('/emprestimos/:id/devolver', async (req, res) => {
   const { nome_pessoa, item_devolvido, codigo, data_devolucao, estado_fisico, funcionalidade, condicoes, observacoes } = req.body;
   try {
@@ -358,7 +358,7 @@ app.put('/emprestimos/:id/devolver', async (req, res) => {
   }
 });
 
-// ==================== RELATÓRIOS ====================
+// relatorios
 app.get('/api/relatorios', async (_, res) => {
   try {
     const relatorios = await query(`
@@ -376,5 +376,4 @@ app.get('/api/relatorios', async (_, res) => {
   }
 });
 
-// ==================== INICIALIZA SERVIDOR ====================
-app.listen(8080, () => console.log('✅ Servidor rodando em: http://localhost:8080'));
+app.listen(8080, () => console.log('Servidor rodando em: http://localhost:8080'));

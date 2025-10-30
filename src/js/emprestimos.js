@@ -97,6 +97,23 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
+// === Alternar cor da tabela conforme o modo ===
+function aplicarCoresTabela() {
+  const linhasPares = document.querySelectorAll('tr:nth-child(even) td');
+
+  if (document.body.classList.contains('dark')) {
+    linhasPares.forEach(td => td.style.backgroundColor = '#111D4A');
+  } else {
+    linhasPares.forEach(td => td.style.backgroundColor = '#f9f9f9');
+  }
+}
+
+// observar mudanças no modo escuro
+const observer = new MutationObserver(() => aplicarCoresTabela());
+observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+
+// aplica as cores logo ao carregar
+document.addEventListener('DOMContentLoaded', aplicarCoresTabela);
 
   //listar empréstimos ativos
   async function listarEmprestimosAtivos() {

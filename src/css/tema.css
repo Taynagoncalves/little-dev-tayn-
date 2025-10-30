@@ -1,6 +1,6 @@
-/* 🌙 Tema escuro global (tons de azul escuro, sem branco) */
+/* 🌙 Tema escuro global (base #111D4A, texto branco) */
 body.dark {
-  background-color: #111D4A; /* fundo azul escuro */
+  background-color: #111D4A; /* fundo principal */
   color: #ffffff; /* texto branco */
   transition: all 0.3s ease;
   font-family: Arial, sans-serif;
@@ -9,7 +9,7 @@ body.dark {
 /* Títulos */
 body.dark h1,
 body.dark h2,
-body.dark h3,
+body.dark h3
 body.dark h4,
 body.dark h5,
 body.dark h6 {
@@ -18,18 +18,18 @@ body.dark h6 {
 
 /* Links */
 body.dark a {
-  color: #cfd9ff;
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.3s ease;
 }
 
 body.dark a:hover {
-  color: #ffffff;
+  color: #e0e0e0;
 }
 
-/* Sidebar */
+/* Sidebar e menu */
 body.dark .sidebar {
-  background-color: #14225c; /* azul mais escuro */
+  background-color: #111D4A;
   color: #ffffff;
 }
 
@@ -39,21 +39,23 @@ body.dark .menu li a {
 
 body.dark .menu li.ativo,
 body.dark .menu li:hover {
-  background-color: #24347a;
+  background-color: #1a2764;
   color: #ffffff;
 }
 
 /* Cards e Containers */
 body.dark .card,
 body.dark .card-resumo,
-body.dark .card-acao,
+body.dark .card-acao
 body.dark .container,
 body.dark .config-card,
-body.dark .box {
-  background-color: #192A6B; /* azul médio */
+body.dark .box,
+body.dark .form-container,
+body.dark .calendario-container {
+  background-color: #111D4A;
   color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(17, 29, 74, 0.5);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
   padding: 20px;
   transition: all 0.3s ease;
 }
@@ -61,37 +63,37 @@ body.dark .box {
 body.dark .card:hover,
 body.dark .card-resumo:hover,
 body.dark .card-acao:hover {
-  background-color: #20378c;
+  background-color: #1a2764;
 }
 
 /* Tabelas */
 body.dark table {
-  background-color: #16256a;
-  color: #ffffff;
+  background-color: #111D4A;
+  color: #f0f0f0;
   border-collapse: collapse;
   width: 100%;
 }
 
 body.dark .tabela th {
-  background-color: #20378c;
+  background-color: #1a2764;
   color: #ffffff;
   padding: 10px;
-  border: 1px solid #31459b;
+  border: 1px solid #243385;
 }
 
 body.dark .tabela td {
-  background-color: #192A6B;
+  background-color: #111D4A;
   color: #ffffff;
   padding: 10px;
-  border: 1px solid #31459b;
+  border: 1px solid #243385;
 }
 
 /* Botões */
 body.dark button,
 body.dark .btn {
-  background-color: #20378c;
+  background-color: #111D4A;
   color: #ffffff;
-  border: 1px solid #31459b;
+  border: 1px solid #243385;
   padding: 8px 16px;
   border-radius: 6px;
   cursor: pointer;
@@ -100,16 +102,16 @@ body.dark .btn {
 
 body.dark button:hover,
 body.dark .btn:hover {
-  background-color: #31459b;
+  background-color: #1a2764;
 }
 
-/* Inputs e selects */
+/* Inputs e Selects */
 body.dark input,
 body.dark select,
 body.dark textarea {
-  background-color: #16256a; /* fundo azul escuro */
+  background-color: #111D4A;
   color: #ffffff;
-  border: 1px solid #31459b;
+  border: 1px solid #243385;
   padding: 6px 10px;
   border-radius: 4px;
   transition: all 0.3s ease;
@@ -119,29 +121,35 @@ body.dark input:focus,
 body.dark select:focus,
 body.dark textarea:focus {
   outline: none;
-  border-color: #7f9cff;
+  border-color: #ffffff;
 }
 
 /* Switches e Sliders */
 body.dark input[type="checkbox"],
 body.dark .switch {
-  accent-color: #7f9cff;
+  accent-color: #ffffff;
   cursor: pointer;
 }
 
 body.dark input[type="range"] {
-  accent-color: #7f9cff;
+  accent-color: #ffffff;
 }
 
 /* Modais */
 body.dark .modal {
-  background-color: #192A6B;
+  background-color: #111D4A;
   color: #ffffff;
   border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(17, 29, 74, 0.7);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6);
 }
 
-/* 🎨 Modo daltônico global */
+/* Bordas e linhas gerais */
+body.dark hr,
+body.dark .divider {
+  border-color: #243385;
+}
+
+/* Modo daltônico */
 body.daltonico {
   filter: hue-rotate(90deg);
 }

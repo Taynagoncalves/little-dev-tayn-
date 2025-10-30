@@ -84,6 +84,17 @@ h1 {
   margin-bottom: 20px;
   color: #111D4A;
 }
+/* Linhas pares da tabela no modo claro */
+tr:nth-child(even) td {
+  background-color: #f9f9f9; /* cor padrão */
+  transition: background-color 0.3s ease;
+}
+
+/* Linhas pares da tabela no modo escuro */
+body.dark tr:nth-child(even) td {
+  background-color: #111D4A; /* azul escuro */
+  color: #ffffff; /* texto branco */
+}
 
 /* Formulário (form-container) */
 .form-container {

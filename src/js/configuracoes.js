@@ -37,9 +37,32 @@ modoDaltonico.addEventListener("change", () => {
     localStorage.setItem("tamanhoFonte", tamanhoFonte.value);
   });
 
-  //Alertas
-  ativarAlertas.addEventListener("change", () => {
-    localStorage.setItem("ativarAlertas", ativarAlertas.checked);
-    if (ativarAlertas.checked) alert("Alertas ativados!");
-  });
+
+//Alertas
+ativarAlertas.addEventListener("change", () => {
+  localStorage.setItem("ativarAlertas", ativarAlertas.checked);
+  if (ativarAlertas.checked) {
+    Swal.fire({
+      icon: 'success',
+      title: 'Alertas ativados!',
+      text: 'Você receberá notificações do sistema.',
+      timer: 2500,
+      timerProgressBar: true,
+      confirmButtonColor: '#111D4A',
+      confirmButtonText: 'Ok'
+    });
+  } else {
+    Swal.fire({
+      title: "Alertas desativados!",
+      text: "Você não receberá notificações até reativar os alertas.",
+      icon: "warning",
+      confirmButtonColor: "#111D4A",
+      confirmButtonText: "Entendido",
+      timer: 2500,
+      timerProgressBar: true,
+  }
+    );
+  } 
+}
+);
 });

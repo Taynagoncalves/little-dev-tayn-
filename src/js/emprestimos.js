@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const selectEquipamento = document.getElementById('selectEquipamento');
   const formEmprestimo = document.getElementById('formEmprestimo');
   const tabelaEmprestimosAtivos = document.getElementById('tabelaEmprestimosAtivos');
-  const nomePessoaInput = document.getElementById('nomePessoa'); 
+  const nomePessoaInput = document.getElementById('nomePessoa');
 
-  //carregar equipamentos disponíveis
+  // === Carregar equipamentos disponíveis ===
   async function carregarEquipamentos() {
     try {
       const response = await fetch('/equipamentos/disponiveis');
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  //adicionar empréstimo
+  // === Adicionar novo empréstimo ===
   formEmprestimo.addEventListener('submit', async (e) => {
     e.preventDefault();
 
@@ -97,25 +97,22 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     }
   });
-// === Alternar cor da tabela conforme o modo ===
-function aplicarCoresTabela() {
-  const linhasPares = document.querySelectorAll('tr:nth-child(even) td');
 
-  if (document.body.classList.contains('dark')) {
-    linhasPares.forEach(td => td.style.backgroundColor = '#111D4A');
-  } else {
-    linhasPares.forEach(td => td.style.backgroundColor = '#f9f9f9');
+  // === Alternar cor da tabela conforme o modo ===
+  function aplicarCoresTabela() {
+    const linhasPares = document.querySelectorAll('tr:nth-child(even) td');
+    if (document.body.classList.contains('dark')) {
+      linhasPares.forEach(td => td.style.backgroundColor = '#111D4A');
+    } else {
+      linhasPares.forEach(td => td.style.backgroundColor = '#f9f9f9');
+    }
   }
-}
 
-// observar mudanças no modo escuro
-const observer = new MutationObserver(() => aplicarCoresTabela());
-observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  const observer = new MutationObserver(() => aplicarCoresTabela());
+  observer.observe(document.body, { attributes: true, attributeFilter: ['class'] });
+  document.addEventListener('DOMContentLoaded', aplicarCoresTabela);
 
-// aplica as cores logo ao carregar
-document.addEventListener('DOMContentLoaded', aplicarCoresTabela);
-
-  //listar empréstimos ativos
+  // === Listar empréstimos ativos ===
   async function listarEmprestimosAtivos() {
     try {
       const response = await fetch('/emprestimos/ativos');
@@ -138,22 +135,12 @@ document.addEventListener('DOMContentLoaded', aplicarCoresTabela);
         row.insertCell().textContent = emp.nome_equipamento;
         row.insertCell().textContent = emp.data_emprestimo;
         row.insertCell().textContent = emp.data_prevista_devolucao;
-        row.insertCell().textContent = emp.status;
+        row.insertCell().textContent = emp.status || 'Ativo';
 
-        //coluna de ações
+        // ====== BOTÕES DE AÇÃO ======
         const acoesCell = row.insertCell();
 
-        //botao devolver
-        const btnDevolver = document.createElement('button');
-        btnDevolver.textContent = 'Devolver';
-        btnDevolver.classList.add('btn-devolver');
-        btnDevolver.addEventListener('click', () => {
-          // Redireciona para a tela de devolução, passando o ID
-          window.location.href = `/devolucoes?id=${emp.id_emprestimo}`;
-        });
-        acoesCell.appendChild(btnDevolver);
-
-        //botao excluir
+        // botão EXCLUIR (sempre aparece)
         const btnExcluir = document.createElement('button');
         btnExcluir.textContent = 'Excluir';
         btnExcluir.classList.add('btn-excluir');
@@ -201,8 +188,23 @@ document.addEventListener('DOMContentLoaded', aplicarCoresTabela);
             });
           }
         });
+
+        // botão DEVOLVER (aparece só se ainda não devolvido)
+        if (emp.status !== 'Devolvido') {
+          const btnDevolver = document.createElement('button');
+          btnDevolver.textContent = 'Devolver';
+          btnDevolver.classList.add('btn-devolver');
+          btnDevolver.addEventListener('click', () => {
+            window.location.href = `/devolucoes?id=${emp.id_emprestimo}`;
+          });
+          acoesCell.appendChild(btnDevolver);
+        }
+
+        // adiciona botão excluir por último
         acoesCell.appendChild(btnExcluir);
       });
+
+      aplicarCoresTabela();
     } catch (error) {
       console.error('Erro ao listar empréstimos ativos:', error);
       tabelaEmprestimosAtivos.innerHTML = '<tr><td colspan="7">Erro ao carregar empréstimos.</td></tr>';

@@ -29,9 +29,9 @@ document.getElementById('formEquipamento').addEventListener('submit', async (e) 
     });
   } else {
     Swal.fire({
-      title: 'Erro!',
-      text: 'Erro ao adicionar equipamento.',
-      icon: 'error',
+      title: 'Atenção!',
+      text: 'Codigo duplicado.',
+      icon: 'warning',
       confirmButtonColor: '#111D4A',
       confirmButtonText: 'Tentar novamente'
     });

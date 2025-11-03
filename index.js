@@ -111,7 +111,22 @@ app.get('/equipamentos/:id', async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar equipamento' });
   }
 });
-
+// NOTIFICAÇÕES
+app.post("/notificacoes/limpar", async (req, res) => {
+  try {
+      const { ids } = req.body; // ids das notificações a limpar
+      // Exemplo: atualizar no banco de dados
+      // Se estiver usando MySQL/Mongo/etc., faça UPDATE/UPDATEMany
+      await Notificacao.updateMany(
+          { _id: { $in: ids } },
+          { $set: { lida: true } }
+      );
+      res.json({ sucesso: true });
+  } catch (err) {
+      console.error(err);
+      res.status(500).json({ erro: "Erro ao limpar notificações" });
+  }
+});
 // Adicionar
 app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
   try {
@@ -330,9 +345,12 @@ app.put('/emprestimos/:id/devolver', async (req, res) => {
     if (!emprestimo) return res.status(404).json({ error: 'Empréstimo não encontrado.' });
 
     await query(`
-      INSERT INTO devolucoes (nome_pessoa, item_devolvido, codigo, data_devolucao, estado_fisico, funcionalidade, condicoes, observacoes)
-      VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+    INSERT INTO devolucoes (id_emprestimo, nome_pessoa, item_devolvido, codigo, data_devolucao, estado_fisico, funcionalidade, condicoes, observacoes)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
+    
+    
     `, [
+      req.params.id,
       nome_pessoa || emprestimo.nome_pessoa,
       item_devolvido || '',
       codigo || '',
@@ -362,11 +380,11 @@ app.put('/emprestimos/:id/devolver', async (req, res) => {
 app.get('/api/relatorios', async (_, res) => {
   try {
     const relatorios = await query(`
-      SELECT d.nome_pessoa, d.item_devolvido AS nome_equipamento, e.data_emprestimo,
-             d.data_devolucao, d.estado_fisico, d.funcionalidade,
-             d.condicoes, d.observacoes
+      SELECT d.nome_pessoa, d.item_devolvido AS nome_equipamento,
+             e.data_emprestimo, d.data_devolucao,
+             d.estado_fisico, d.funcionalidade, d.condicoes, d.observacoes
       FROM devolucoes d
-      LEFT JOIN emprestimos e ON d.nome_pessoa = e.nome_pessoa
+      LEFT JOIN emprestimos e ON d.id_emprestimo = e.id_emprestimo
       ORDER BY d.data_devolucao DESC
     `);
     res.json(relatorios);
@@ -375,5 +393,6 @@ app.get('/api/relatorios', async (_, res) => {
     res.status(500).json({ error: 'Erro ao gerar relatório' });
   }
 });
+
 
 app.listen(8080, () => console.log('Servidor rodando em: http://localhost:8080'));

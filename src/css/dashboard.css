@@ -9,6 +9,7 @@
   }
 
 
+
   .sidebar {
     width: 240px;
     background: #111D4A;
@@ -77,8 +78,8 @@
   }
 
   .main-content h1 {
-    font-size: 1.6rem;
-    margin-bottom: 30px;
+    font-size: 2.1rem;
+    margin-bottom: 50px;
     color: #111D4A;
   }
 
@@ -152,4 +153,135 @@
     transform: scale(1.03);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
   }
-  
+  /* === BOTÃO FIXO DE NOTIFICAÇÕES === */
+.notificacoes-fixas {
+  position: fixed;
+  top: 15px;
+  right: 25px;
+  z-index: 999;
+}
+
+.btn-notificacoes {
+  background-color: #111D4A;
+  color: white;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: 0.3s;
+}
+
+.btn-notificacoes:hover {
+  background-color: #b5ccee;
+}
+
+/* contador bolinha */
+#contadorNotificacoes {
+  background: red;
+  color: white;
+  font-size: 12px;
+  font-weight: bold;
+  border-radius: 50%;
+  padding: 3px 6px;
+  margin-left: 6px;
+}
+
+.contador-oculto {
+  display: none;
+}
+
+/* painel de notificações */
+.painel-notificacoes {
+  position: absolute;
+  right: 0;
+  top: 50px;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 300px;
+  max-height: 350px;
+  overflow-y: auto;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+
+.painel-notificacoes.oculto {
+  display: none;
+}
+
+.painel-notificacoes h3 {
+  margin: 10px;
+  font-size: 18px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 5px;
+}
+
+.painel-notificacoes ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.painel-notificacoes li {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.painel-notificacoes li:last-child {
+  border-bottom: none;
+}
+.btn-notificacoes {
+  position: relative;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icone-notificacao {
+  width: 26px;     /* ajuste o tamanho se quiser */
+  height: 26px;
+  filter: brightness(0) saturate(100%) invert(20%) sepia(70%) saturate(400%) hue-rotate(210deg);
+}
+
+#contadorNotificacoes {
+  position: absolute;
+  top: -4px;
+  right: -6px;
+  background-color: red;
+  color: white;
+  font-size: 0.7rem;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+.contador-oculto {
+  display: none;
+}
+.notificacao-reserva {
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.notificacao-reserva:hover {
+  background-color: rgba(17, 29, 74, 0.1);
+}
+
+.notificacao-atraso,
+.notificacao-reserva {
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  padding: 6px 10px;
+  border-radius: 6px;
+}
+
+.notificacao-atraso:hover,
+.notificacao-reserva:hover {
+  background-color: rgba(17, 29, 74, 0.1);
+  transform: scale(1.02);
+}

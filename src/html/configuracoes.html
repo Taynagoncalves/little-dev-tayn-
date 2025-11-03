@@ -10,6 +10,17 @@
   <link rel="stylesheet" href="../css/configuracoes.css" />
 </head>
 <body>
+  <div class="notificacoes-fixas">
+    <button id="btnNotificacoes" class="btn-notificacoes">
+      <img src="../iconsDashbord/notificacoes.png" alt="Notificações" class="icone-notificacao">
+      <span id="contadorNotificacoes" class="contador-oculto">0</span>
+    </button>
+  
+    <div id="painelNotificacoes" class="painel-notificacoes oculto">
+      <h3>Notificações</h3>
+      <ul id="listaNotificacoes"></ul>
+    </div>
+  </div>
   <!-- SIDEBAR -->
   <div class="sidebar">
     <div class="logo">
@@ -52,7 +63,7 @@
   
   <!-- CONTEÚDO PRINCIPAL -->
   <div class="main-content">
-    <h1>Configurações do Sistema</h1>
+    <h1>Configurações</h1>
 
     <div class="config-card">
       <div class="config-item">
@@ -77,7 +88,7 @@
       </div>
 
       <div class="config-item">
-        <span>Ativar Alertas</span>
+        <span>Ativar/Desativar Notificações</span>
         <label class="switch">
           <input type="checkbox" id="ativarAlertas" />
           <span class="slider"></span>
@@ -87,6 +98,7 @@
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
+  <script src="../js/notificacoes.js"></script>
   <script src="../js/configuracoes.js"></script>
   <script src="../js/dashboard.js"></script>
   <script src="../js/tema.js"></script>

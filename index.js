@@ -181,13 +181,38 @@ app.put('/equipamentos/:id', upload.single('imagem'), async (req, res) => {
 
 // Excluir
 app.delete('/equipamentos/:id', async (req, res) => {
+  const id = req.params.id;
+
   try {
-    const result = await query('DELETE FROM equipamentos WHERE id_equipamento = ?', [req.params.id]);
-    if (!result.affectedRows) return res.status(404).json({ error: 'Equipamento não encontrado.' });
+    // Verifica se há reservas ativas
+    const reservasAtivas = await query(
+      'SELECT * FROM reservas WHERE id_equipamento = ? AND status = "Ativo"',
+      [id]
+    );
+
+    if (reservasAtivas.length > 0) {
+      return res.status(400).json({
+        error: 'Não é possível excluir este equipamento, pois ele possui uma reserva ativa.'
+      });
+    }
+
+    // Remove reservas concluídas (para não deixar lixo no banco)
+    await query('DELETE FROM reservas WHERE id_equipamento = ? AND status = "Concluído"', [id]);
+
+    // Remove empréstimos associados (se houver)
+    await query('DELETE FROM emprestimos WHERE id_equipamento = ?', [id]);
+
+    // Agora exclui o equipamento
+    const result = await query('DELETE FROM equipamentos WHERE id_equipamento = ?', [id]);
+
+    if (!result.affectedRows) {
+      return res.status(404).json({ error: 'Equipamento não encontrado.' });
+    }
+
     res.json({ message: 'Equipamento excluído com sucesso!' });
   } catch (err) {
     console.error('Erro ao excluir equipamento:', err);
-    res.status(500).json({ error: 'Erro ao excluir equipamento' });
+    res.status(500).json({ error: 'Erro ao excluir equipamento.' });
   }
 });
 

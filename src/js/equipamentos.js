@@ -11,9 +11,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
       container.innerHTML = '';
 
-      const filtrados = equipamentos.filter(e =>
-        e.nome.toLowerCase().includes(filtro.toLowerCase())
-      );
+    const filtrados = equipamentos.filter(e =>
+    e.nome.toLowerCase().includes(filtro.toLowerCase()) ||
+    e.codigo.toLowerCase().includes(filtro.toLowerCase())
+   );
+
 
       if (filtrados.length === 0) {
         container.innerHTML = '<p>Nenhum equipamento encontrado.</p>';
@@ -88,8 +90,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
               } else {
                 Swal.fire({
-                  title: 'Erro!',
-                  text: 'Ocorreu um erro ao excluir o equipamento.',
+                  title: 'Atenção!',
+                  text: 'Equipamento Reservado, Finalize a Reserva para Excluir.',
                   icon: 'error',
                   confirmButtonText: 'OK'
                 });

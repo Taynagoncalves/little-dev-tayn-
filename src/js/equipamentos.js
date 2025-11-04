@@ -62,18 +62,43 @@ document.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('.btn-delete').forEach(btn => {
         btn.addEventListener('click', async e => {
           const id = e.currentTarget.dataset.id;
-          if (confirm('Tem certeza que deseja excluir este equipamento?')) {
-            const res = await fetch(`/equipamentos/${id}`, { method: 'DELETE' });
-            if (res.ok) {
-              alert('Equipamento excluído com sucesso!');
-              carregarEquipamentos();
-            } else {
-              alert('Erro ao excluir equipamento.');
+      
+          // Confirmação com Swal
+          Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Você realmente deseja excluir este equipamento?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#111D4A',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sim, excluir',
+            cancelButtonText: 'Cancelar'
+          }).then(async (result) => {
+            if (result.isConfirmed) {
+              const res = await fetch(`/equipamentos/${id}`, { method: 'DELETE' });
+      
+              if (res.ok) {
+                Swal.fire({
+                  title: 'Excluído!',
+                  text: 'Equipamento excluído com sucesso.',
+                  icon: 'success',
+                  confirmButtonText: 'OK'
+                }).then(() => {
+                  carregarEquipamentos(); // Atualiza a lista
+                });
+              } else {
+                Swal.fire({
+                  title: 'Erro!',
+                  text: 'Ocorreu um erro ao excluir o equipamento.',
+                  icon: 'error',
+                  confirmButtonText: 'OK'
+                });
+              }
             }
-          }
+          });
         });
       });
-
+      
     } catch (err) {
       console.error('Erro ao carregar equipamentos:', err);
       container.innerHTML = '<p>Erro ao carregar equipamentos.</p>';

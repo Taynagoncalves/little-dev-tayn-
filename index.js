@@ -111,12 +111,12 @@ app.get('/equipamentos/:id', async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar equipamento' });
   }
 });
+
+
 // NOTIFICAÇÕES
 app.post("/notificacoes/limpar", async (req, res) => {
   try {
-      const { ids } = req.body; // ids das notificações a limpar
-      // Exemplo: atualizar no banco de dados
-      // Se estiver usando MySQL/Mongo/etc., faça UPDATE/UPDATEMany
+      const { ids } = req.body; 
       await Notificacao.updateMany(
           { _id: { $in: ids } },
           { $set: { lida: true } }
@@ -127,6 +127,8 @@ app.post("/notificacoes/limpar", async (req, res) => {
       res.status(500).json({ erro: "Erro ao limpar notificações" });
   }
 });
+
+
 // Adicionar
 app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
   try {
@@ -146,6 +148,7 @@ app.post('/equipamentos', upload.single('imagem'), async (req, res) => {
     res.status(500).json({ error: 'Erro ao adicionar equipamento' });
   }
 });
+
 
 // Atualizar
 app.put('/equipamentos/:id', upload.single('imagem'), async (req, res) => {
@@ -188,6 +191,7 @@ app.delete('/equipamentos/:id', async (req, res) => {
   }
 });
 
+
 //  CATEGORIAS 
 app.get('/categorias', async (_, res) => {
   try {
@@ -198,6 +202,7 @@ app.get('/categorias', async (_, res) => {
     res.json([]);
   }
 });
+
 
 // EMPRÉSTIMOS
 app.post('/emprestimos', async (req, res) => {
@@ -218,6 +223,7 @@ app.post('/emprestimos', async (req, res) => {
     res.status(500).json({ error: 'Erro ao adicionar empréstimo' });
   }
 });
+
 
 // Listar empréstimos ativos
 app.get('/emprestimos/ativos', async (_, res) => {
@@ -254,8 +260,8 @@ app.delete('/emprestimos/:id', async (req, res) => {
   }
 });
 
-//RESERVAS 
 
+//RESERVAS 
 // Listar reservas
 app.get('/api/reservas', async (_, res) => {
   try {
@@ -344,22 +350,21 @@ app.put('/emprestimos/:id/devolver', async (req, res) => {
     const [emprestimo] = await query('SELECT * FROM emprestimos WHERE id_emprestimo=?', [req.params.id]);
     if (!emprestimo) return res.status(404).json({ error: 'Empréstimo não encontrado.' });
 
+
     await query(`
-    INSERT INTO devolucoes (id_emprestimo, nome_pessoa, item_devolvido, codigo, data_devolucao, estado_fisico, funcionalidade, condicoes, observacoes)
-    VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)
-    
-    
-    `, [
-      req.params.id,
-      nome_pessoa || emprestimo.nome_pessoa,
-      item_devolvido || '',
-      codigo || '',
-      data_devolucao || new Date().toISOString().slice(0, 10),
-      estado_fisico || 'Bom',
-      funcionalidade || 'Funciona',
-      condicoes || 'Intacto',
-      observacoes || null
-    ]);
+    INSERT INTO devolucoes (nome_pessoa, item_devolvido, codigo, data_devolucao, estado_fisico, funcionalidade, condicoes, observacoes)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+  `, [
+    nome_pessoa || emprestimo.nome_pessoa,
+    item_devolvido || '',
+    codigo || '',
+    data_devolucao || new Date().toISOString().slice(0, 10),
+    estado_fisico || 'Bom',
+    funcionalidade || 'Funciona',
+    condicoes || 'Intacto',
+    observacoes || null
+  ]);
+  
 
     await query(`
       UPDATE emprestimos SET status='Devolvido', data_devolucao=? WHERE id_emprestimo=?
@@ -380,19 +385,25 @@ app.put('/emprestimos/:id/devolver', async (req, res) => {
 app.get('/api/relatorios', async (_, res) => {
   try {
     const relatorios = await query(`
-      SELECT d.nome_pessoa, d.item_devolvido AS nome_equipamento,
-             e.data_emprestimo, d.data_devolucao,
-             d.estado_fisico, d.funcionalidade, d.condicoes, d.observacoes
-      FROM devolucoes d
-      LEFT JOIN emprestimos e ON d.id_emprestimo = e.id_emprestimo
-      ORDER BY d.data_devolucao DESC
+      SELECT 
+        nome_pessoa, 
+        item_devolvido AS nome_equipamento,
+        NULL AS data_emprestimo,      -- evita erro se a coluna não existir
+        data_devolucao, 
+        estado_fisico, 
+        funcionalidade, 
+        condicoes, 
+        observacoes
+      FROM devolucoes
+      ORDER BY data_devolucao DESC
     `);
     res.json(relatorios);
   } catch (err) {
     console.error('Erro ao gerar relatório:', err);
-    res.status(500).json({ error: 'Erro ao gerar relatório' });
+    res.status(500).json({ error: 'Erro ao gerar relatório.' });
   }
 });
+
 
 
 app.listen(8080, () => console.log('Servidor rodando em: http://localhost:8080'));
